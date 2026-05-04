@@ -1,0 +1,478 @@
+version: "3.9"
+
+# Onetouch AI+MES - Development Environment
+# Includes 11 services: frontend, backend, postgres (TimescaleDB), redis,
+# minio, qdrant, zookeeper, kafka, mqtt (mosquitto), mlflow, celery-worker
+
+name: onetouch
+
+services:
+  # ----------------------------------------------------------------
+  # Frontend (Next.js 14)
+  # ----------------------------------------------------------------
+  frontend:
+    image: node:20-alpine
+    container_name: onetouch-frontend
+    working_dir: /app
+    command: sh -c "corepack enable && pnpm install && pnpm dev"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../../frontend:/app
+      - frontend-node-modules:/app/node_modules
+      - frontend-next-cache:/app/.next
+    environment:
+      - NODE_ENV=development
+      - NEXTAUTH_URL=${NEXTAUTH_URL:-http://localhost:3000}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET:-dev-nextauth-secret-change-me}
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+      - NEXT_PUBLIC_WS_URL=${NEXT_PUBLIC_WS_URL:-ws://localhost:8000}
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:3000 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    restart: unless-stopped
+    networks:
+      - onetouch-net
+
+  # ----------------------------------------------------------------
+  # Backend (FastAPI / Python 3.11)
+  # ----------------------------------------------------------------
+  backend:
+    image: python:3.11-slim
+    container_name: onetouch-backend
+    working_dir: /app
+    command: >
+      sh -c "pip install --no-cache-dir -r requirements.txt &&
+             alembic upgrade head || true &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../../backend:/app
+      - backend-pip-cache:/root/.cache/pip
+    environment:
+      # Database
+      - POSTGRES_HOST=${POSTGRES_HOST:-postgres}
+      - POSTGRES_PORT=${POSTGRES_PORT:-5432}
+      - POSTGRES_DB=${POSTGRES_DB:-onetouch_mes}
+      - POSTGRES_USER=${POSTGRES_USER:-onetouch}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme_dev}
+      - DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-onetouch}:${POSTGRES_PASSWORD:-changeme_dev}@${POSTGRES_HOST:-postgres}:${POSTGRES_PORT:-5432}/${POSTGRES_DB:-onetouch_mes}
+      # Redis
+      - REDIS_URL=${REDIS_URL:-redis://redis:6379/0}
+      # MinIO
+      - MINIO_ENDPOINT=${MINIO_ENDPOINT:-minio:9000}
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY:-minioadmin}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY:-minioadmin}
+      - MINIO_BUCKET_CAD=${MINIO_BUCKET_CAD:-cad-files}
+      - MINIO_BUCKET_REPORTS=${MINIO_BUCKET_REPORTS:-reports}
+      # Qdrant
+      - QDRANT_HOST=${QDRANT_HOST:-qdrant}
+      - QDRANT_PORT=${QDRANT_PORT:-6333}
+      - QDRANT_COLLECTION_INBOUND=${QDRANT_COLLECTION_INBOUND:-inbound_knowledge}
+      - QDRANT_COLLECTION_OUTBOUND=${QDRANT_COLLECTION_OUTBOUND:-outbound_knowledge}
+      # Kafka
+      - KAFKA_BOOTSTRAP_SERVERS=${KAFKA_BOOTSTRAP_SERVERS:-kafka:9092}
+      - KAFKA_TOPIC_SENSOR_PROCESS=${KAFKA_TOPIC_SENSOR_PROCESS:-raw.sensor.process}
+      - KAFKA_TOPIC_SENSOR_EQUIPMENT=${KAFKA_TOPIC_SENSOR_EQUIPMENT:-raw.sensor.equipment}
+      - KAFKA_TOPIC_ANOMALY=${KAFKA_TOPIC_ANOMALY:-processed.anomaly}
+      - KAFKA_TOPIC_ALERT=${KAFKA_TOPIC_ALERT:-alert.equipment}
+      # MQTT
+      - MQTT_BROKER_HOST=${MQTT_BROKER_HOST:-mqtt}
+      - MQTT_BROKER_PORT=${MQTT_BROKER_PORT:-1883}
+      # JWT
+      - SECRET_KEY=${SECRET_KEY:-dev-secret-key-min-32-chars-change-in-prod}
+      - ALGORITHM=${ALGORITHM:-HS256}
+      - ACCESS_TOKEN_EXPIRE_MINUTES=${ACCESS_TOKEN_EXPIRE_MINUTES:-30}
+      - REFRESH_TOKEN_EXPIRE_DAYS=${REFRESH_TOKEN_EXPIRE_DAYS:-7}
+      # LLM APIs
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4o}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      # Qdrant collection
+      - QDRANT_COLLECTION=${QDRANT_COLLECTION:-quotations}
+      # MLflow
+      - MLFLOW_TRACKING_URI=${MLFLOW_TRACKING_URI:-http://mlflow:5000}
+      # App
+      - APP_NAME=${APP_NAME:-Onetouch AI+MES}
+      - APP_VERSION=${APP_VERSION:-1.0.0}
+      - DEBUG=${DEBUG:-true}
+      - CORS_ORIGINS=${CORS_ORIGINS:-http://localhost:3000}
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+      kafka:
+        condition: service_healthy
+      mqtt:
+        condition: service_started
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/health')\" || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    restart: unless-stopped
+    networks:
+      - onetouch-net
+
+  # ----------------------------------------------------------------
+  # PostgreSQL with TimescaleDB
+  # ----------------------------------------------------------------
+  postgres:
+    image: timescale/timescaledb:latest-pg16
+    container_name: onetouch-postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-onetouch_mes}
+      - POSTGRES_USER=${POSTGRES_USER:-onetouch}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme_dev}
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --lc-collate=C --lc-ctype=C
+      - TIMESCALEDB_TELEMETRY=off
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-onetouch} -d ${POSTGRES_DB:-onetouch_mes}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+    networks:
+      - onetouch-net
+
+  # ----------------------------------------------------------------
+  # Redis (cache + Celery broker + Pub/Sub)
+  # ----------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: onetouch-redis
+    command: redis-server --appendonly yes --maxmemory 512mb --maxmemory-policy allkeys-lru
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - onetouch-net
+
+  # ----------------------------------------------------------------
+  # MinIO (S3 compatible object storage)
+  # ----------------------------------------------------------------
+  minio:
+    image: minio/minio:latest
+    container_name: onetouch-minio
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"   # API
+      - "9001:9001"   # Console
+    volumes:
+      - minio-data:/data
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ACCESS_KEY:-minioadmin}
+      - MINIO_ROOT_PASSWORD=${MINIO_SECRET_KEY:-minioadmin}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+    networks:
+      - onetouch-net
+
+  # ----------------------------------------------------------------
+  # Qdrant (Vector DB)
+  # ----------------------------------------------------------------
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: onetouch-qdrant
+    ports:
+      - "6333:6333"   # REST API
+      - "6334:6334"   # gRPC
+    volumes:
+      - qdrant-data:/qdrant/storage
+    environment:
+      - QDRANT__SERVICE__HTTP_PORT=6333
+      - QDRANT__SERVICE__GRPC_PORT=6334
+      - QDRANT__LOG_LEVEL=INFO
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c ':> /dev/tcp/127.0.0.1/6333' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+    networks:
+      - onetouch-net
+
+  # ----------------------------------------------------------------
+  # Zookeeper (required for Kafka)
+  # ----------------------------------------------------------------
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: onetouch-zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      - ZOOKEEPER_CLIENT_PORT=2181
+      - ZOOKEEPER_TICK_TIME=2000
+    volumes:
+      - zookeeper-data:/var/lib/zookeeper/data
+      - zookeeper-logs:/var/lib/zookeeper/log
+    healthcheck:
+      test: ["CMD-SHELL", "echo srvr | nc localhost 2181 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+    networks:
+      - onetouch-net
+
+  # ----------------------------------------------------------------
+  # Kafka (event streaming)
+  # ----------------------------------------------------------------
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: onetouch-kafka
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    depends_on:
+      zookeeper:
+        condition: service_healthy
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+      - KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=1
+      - KAFKA_TRANSACTION_STATE_LOG_MIN_ISR=1
+      - KAFKA_AUTO_CREATE_TOPICS_ENABLE=true
+      - KAFKA_LOG_RETENTION_HOURS=168
+      - KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS=0
+    volumes:
+      - kafka-data:/var/lib/kafka/data
+    healthcheck:
+      test: ["CMD-SHELL", "kafka-broker-api-versions --bootstrap-server localhost:9092 >/dev/null 2>&1 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+    restart: unless-stopped
+    networks:
+      - onetouch-net
+
+  # ----------------------------------------------------------------
+  # MQTT Broker (Eclipse Mosquitto)
+  # ----------------------------------------------------------------
+  mqtt:
+    image: eclipse-mosquitto:2
+    container_name: onetouch-mqtt
+    ports:
+      - "1883:1883"   # MQTT
+      - "9002:9001"   # WebSocket (mapped to 9002 host to avoid MinIO console clash)
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - mqtt-data:/mosquitto/data
+      - mqtt-logs:/mosquitto/log
+    healthcheck:
+      test: ["CMD-SHELL", "mosquitto_sub -h localhost -p 1883 -t '$$SYS/#' -C 1 -W 3 >/dev/null 2>&1 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+    restart: unless-stopped
+    networks:
+      - onetouch-net
+
+  # ----------------------------------------------------------------
+  # MLflow (experiment tracking)
+  # ----------------------------------------------------------------
+  mlflow:
+    image: python:3.11-slim
+    container_name: onetouch-mlflow
+    working_dir: /mlflow
+    command: >
+      sh -c "pip install --no-cache-dir mlflow==2.13.0 psycopg2-binary boto3 &&
+             mlflow server
+                --host 0.0.0.0
+                --port 5000
+                --backend-store-uri postgresql+psycopg2://${POSTGRES_USER:-onetouch}:${POSTGRES_PASSWORD:-changeme_dev}@postgres:5432/${POSTGRES_DB:-onetouch_mes}
+                --default-artifact-root s3://mlflow-artifacts/
+                --serve-artifacts"
+    ports:
+      - "5000:5000"
+    volumes:
+      - mlflow-artifacts:/mlflow/artifacts
+      - mlflow-pip-cache:/root/.cache/pip
+    environment:
+      - MLFLOW_S3_ENDPOINT_URL=http://minio:9000
+      - AWS_ACCESS_KEY_ID=${MINIO_ACCESS_KEY:-minioadmin}
+      - AWS_SECRET_ACCESS_KEY=${MINIO_SECRET_KEY:-minioadmin}
+      - AWS_DEFAULT_REGION=us-east-1
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:5000')\" || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 90s
+    restart: unless-stopped
+    networks:
+      - onetouch-net
+
+  # ----------------------------------------------------------------
+  # Celery Worker (async tasks)
+  # ----------------------------------------------------------------
+  celery-worker:
+    image: python:3.11-slim
+    container_name: onetouch-celery-worker
+    working_dir: /app
+    command: >
+      sh -c "pip install --no-cache-dir -r requirements.txt &&
+             celery -A app.core.celery_app worker
+                --loglevel=info
+                --concurrency=2
+                --queues=ai_agent_queue,cad_queue,celery"
+    volumes:
+      - ../../backend:/app
+      - backend-pip-cache:/root/.cache/pip
+    environment:
+      # Reuse all backend env vars
+      - POSTGRES_HOST=${POSTGRES_HOST:-postgres}
+      - POSTGRES_PORT=${POSTGRES_PORT:-5432}
+      - POSTGRES_DB=${POSTGRES_DB:-onetouch_mes}
+      - POSTGRES_USER=${POSTGRES_USER:-onetouch}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme_dev}
+      - DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-onetouch}:${POSTGRES_PASSWORD:-changeme_dev}@${POSTGRES_HOST:-postgres}:${POSTGRES_PORT:-5432}/${POSTGRES_DB:-onetouch_mes}
+      - REDIS_URL=${REDIS_URL:-redis://redis:6379/0}
+      - CELERY_BROKER_URL=${REDIS_URL:-redis://redis:6379/0}
+      - CELERY_RESULT_BACKEND=${REDIS_URL:-redis://redis:6379/0}
+      - MINIO_ENDPOINT=${MINIO_ENDPOINT:-minio:9000}
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY:-minioadmin}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY:-minioadmin}
+      - QDRANT_HOST=${QDRANT_HOST:-qdrant}
+      - QDRANT_PORT=${QDRANT_PORT:-6333}
+      - KAFKA_BOOTSTRAP_SERVERS=${KAFKA_BOOTSTRAP_SERVERS:-kafka:9092}
+      - MQTT_BROKER_HOST=${MQTT_BROKER_HOST:-mqtt}
+      - MQTT_BROKER_PORT=${MQTT_BROKER_PORT:-1883}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4o}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - QDRANT_COLLECTION=${QDRANT_COLLECTION:-quotations}
+      - MLFLOW_TRACKING_URI=${MLFLOW_TRACKING_URI:-http://mlflow:5000}
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      backend:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "celery -A app.workers.celery_app inspect ping -d celery@$$HOSTNAME || exit 1"]
+      interval: 60s
+      timeout: 15s
+      retries: 5
+      start_period: 90s
+    restart: unless-stopped
+    networks:
+      - onetouch-net
+
+  # ----------------------------------------------------------------
+  # Celery GPU Worker (Sprint 6 — YOLOv8 학습 전용)
+  # ----------------------------------------------------------------
+  celery-gpu-worker:
+    image: python:3.11-slim
+    container_name: onetouch-celery-gpu
+    working_dir: /app
+    command: >
+      sh -c "pip install --no-cache-dir -r requirements.txt &&
+             celery -A app.core.celery_app worker
+                --loglevel=info
+                --concurrency=1
+                --queues=train_queue"
+    volumes:
+      - ../../backend:/app
+      - backend-pip-cache:/root/.cache/pip
+      - /tmp:/tmp
+    environment:
+      - POSTGRES_HOST=${POSTGRES_HOST:-postgres}
+      - POSTGRES_PORT=${POSTGRES_PORT:-5432}
+      - POSTGRES_DB=${POSTGRES_DB:-onetouch_mes}
+      - POSTGRES_USER=${POSTGRES_USER:-onetouch}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-changeme_dev}
+      - DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-onetouch}:${POSTGRES_PASSWORD:-changeme_dev}@${POSTGRES_HOST:-postgres}:${POSTGRES_PORT:-5432}/${POSTGRES_DB:-onetouch_mes}
+      - REDIS_URL=${REDIS_URL:-redis://redis:6379/0}
+      - CELERY_BROKER_URL=${REDIS_URL:-redis://redis:6379/0}
+      - CELERY_RESULT_BACKEND=${REDIS_URL:-redis://redis:6379/0}
+      - MINIO_ENDPOINT=${MINIO_ENDPOINT:-minio:9000}
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY:-minioadmin}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY:-minioadmin}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - MLFLOW_TRACKING_URI=${MLFLOW_TRACKING_URI:-http://mlflow:5000}
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      backend:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      mlflow:
+        condition: service_started
+    restart: unless-stopped
+    networks:
+      - onetouch-net
+
+# --------------------------------------------------------------------
+# Volumes (persistent storage)
+# --------------------------------------------------------------------
+volumes:
+  postgres-data:
+  redis-data:
+  minio-data:
+  qdrant-data:
+  zookeeper-data:
+  zookeeper-logs:
+  kafka-data:
+  mqtt-data:
+  mqtt-logs:
+  mlflow-artifacts:
+  mlflow-pip-cache:
+  backend-pip-cache:
+  frontend-node-modules:
+  frontend-next-cache:
+
+# --------------------------------------------------------------------
+# Network
+# --------------------------------------------------------------------
+networks:
+  onetouch-net:
+    name: onetouch-net
+    driver: bridge

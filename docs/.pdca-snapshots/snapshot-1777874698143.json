@@ -1,0 +1,2037 @@
+{
+  "timestamp": "2026-05-04T06:04:58.141Z",
+  "reason": "compaction",
+  "status": {
+    "version": "2.0",
+    "lastUpdated": "2026-05-04T06:04:57.032Z",
+    "activeFeatures": [
+      "mes-architecture",
+      "backend",
+      "core",
+      "frontend",
+      "scripts",
+      "schemas",
+      "api",
+      "v1",
+      "stores",
+      "ui",
+      "alembic",
+      "layout",
+      "(auth)",
+      "login",
+      "(dashboard)",
+      "process",
+      "inventory",
+      "logistics",
+      "orders",
+      "master-data",
+      "kpi",
+      "data-hub",
+      "ai-agent",
+      "admin",
+      "versions",
+      "shipment",
+      "quotation",
+      "system",
+      "master",
+      "[wo_id]",
+      "middleware",
+      "tasks"
+    ],
+    "primaryFeature": "sprint-5-quotation-ai",
+    "features": {
+      "sprint-5-quotation-ai": {
+        "phase": "design",
+        "planCompleted": true,
+        "designCompleted": true,
+        "matchRate": null,
+        "iterationCount": 0,
+        "startedAt": "2026-05-04T18:45:00.000Z",
+        "updatedAt": "2026-05-04T19:30:00.000Z",
+        "documents": {
+          "plan": "docs/01-plan/features/sprint-5-quotation-ai.plan.md",
+          "design": "docs/02-design/features/sprint-5-quotation-ai.design.md"
+        }
+      },
+      "sprint-4-inbound-kpi": {
+        "phase": "completed",
+        "planCompleted": true,
+        "designCompleted": true,
+        "doCompleted": true,
+        "checkCompleted": true,
+        "reportCompleted": true,
+        "matchRate": 95,
+        "iterationCount": 0,
+        "startedAt": "2026-05-04T15:30:00.000Z",
+        "completedAt": "2026-05-04T18:30:00.000Z",
+        "updatedAt": "2026-05-04T18:30:00.000Z",
+        "documents": {
+          "plan": "docs/01-plan/features/sprint-4-inbound-kpi.plan.md",
+          "design": "docs/02-design/features/sprint-4-inbound-kpi.design.md",
+          "analysis": "docs/03-analysis/sprint-4-inbound-kpi.analysis.md",
+          "report": "docs/04-report/features/sprint-4-inbound-kpi.report.md"
+        }
+      },
+      "sprint-3-ai-agent": {
+        "phase": "completed",
+        "planCompleted": true,
+        "designCompleted": true,
+        "doCompleted": true,
+        "checkCompleted": true,
+        "reportCompleted": true,
+        "matchRate": 96,
+        "iterationCount": 0,
+        "startedAt": "2026-05-04T00:00:00.000Z",
+        "completedAt": "2026-05-04T15:30:00.000Z",
+        "updatedAt": "2026-05-04T15:30:00.000Z",
+        "documents": {
+          "plan": "docs/01-plan/features/sprint-3-ai-agent.plan.md",
+          "design": "docs/02-design/features/sprint-3-ai-agent.design.md",
+          "analysis": "docs/03-analysis/sprint-3-ai-agent.analysis.md",
+          "report": "docs/04-report/features/sprint-3-ai-agent.report.md"
+        }
+      },
+      "sprint-2-core": {
+        "phase": "completed",
+        "planCompleted": true,
+        "designCompleted": true,
+        "doCompleted": true,
+        "checkCompleted": true,
+        "reportCompleted": true,
+        "matchRate": 91,
+        "iterationCount": 3,
+        "startedAt": "2026-04-30T11:30:00.000Z",
+        "completedAt": "2026-05-04T12:00:00.000Z",
+        "updatedAt": "2026-05-04T12:00:00.000Z",
+        "documents": {
+          "plan": "docs/01-plan/features/sprint-2-core.plan.md",
+          "design": "docs/02-design/features/sprint-2-core.design.md",
+          "analysis": "docs/03-analysis/sprint-2-core.analysis.md",
+          "report": "docs/04-report/sprint-2-core.report.md"
+        }
+      },
+      "mes-architecture": {
+        "phase": "completed",
+        "planCompleted": true,
+        "designCompleted": true,
+        "doCompleted": true,
+        "checkCompleted": true,
+        "reportCompleted": true,
+        "matchRate": 38.4,
+        "iterationCount": 1,
+        "startedAt": "2026-04-30T06:01:45.884Z",
+        "completedAt": "2026-04-30T11:00:00.000Z",
+        "updatedAt": "2026-04-30T11:00:00.000Z",
+        "documents": {
+          "plan": "docs/01-plan/MASTER-PLAN.md",
+          "design": "docs/02-design/features/mes-architecture.design.md",
+          "dbSchema": "docs/02-design/db/schema.sql",
+          "apiSpec": "docs/02-design/api/api-spec.md",
+          "architecture": "docs/02-design/architecture/system-architecture.md",
+          "analysis": "docs/03-analysis/mes-architecture.analysis.md",
+          "report": "docs/04-report/mes-architecture.report.md"
+        }
+      },
+      "backend": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T07:58:55.889Z",
+          "lastUpdated": "2026-05-04T06:04:54.631Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\backend\\app\\services\\cad_analysis_service.py"
+      },
+      "core": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T07:58:59.334Z",
+          "lastUpdated": "2026-05-04T06:03:33.132Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\backend\\app\\core\\storage.py"
+      },
+      "frontend": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T07:59:40.440Z",
+          "lastUpdated": "2026-05-04T03:45:10.133Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\lib\\hooks\\use-orders.ts"
+      },
+      "scripts": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:00:18.033Z",
+          "lastUpdated": "2026-04-30T08:28:47.928Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\backend\\scripts\\seed_master_data.py"
+      },
+      "schemas": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:00:39.040Z",
+          "lastUpdated": "2026-05-04T06:03:58.977Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\backend\\app\\schemas\\quotation.py"
+      },
+      "api": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:01:17.873Z",
+          "lastUpdated": "2026-04-30T09:00:11.583Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\lib\\api\\dashboard.ts"
+      },
+      "v1": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:01:32.750Z",
+          "lastUpdated": "2026-05-04T03:44:35.355Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\backend\\app\\api\\v1\\router.py"
+      },
+      "stores": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:02:15.950Z",
+          "lastUpdated": "2026-04-30T08:02:26.767Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\lib\\stores\\ui-store.ts"
+      },
+      "ui": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:03:14.879Z",
+          "lastUpdated": "2026-05-04T02:48:23.469Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\components\\ui\\risk-badge.tsx"
+      },
+      "alembic": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:03:16.136Z",
+          "lastUpdated": "2026-04-30T08:03:16.136Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\backend\\alembic\\env.py"
+      },
+      "layout": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:03:40.034Z",
+          "lastUpdated": "2026-04-30T08:28:06.153Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\components\\layout\\sidebar.tsx"
+      },
+      "(auth)": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:04:55.620Z",
+          "lastUpdated": "2026-04-30T08:04:55.620Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\app\\(auth)\\layout.tsx"
+      },
+      "login": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:05:18.260Z",
+          "lastUpdated": "2026-04-30T08:05:18.260Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\app\\(auth)\\login\\page.tsx"
+      },
+      "(dashboard)": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:05:30.720Z",
+          "lastUpdated": "2026-04-30T09:03:47.361Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\app\\(dashboard)\\page.tsx"
+      },
+      "process": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:06:35.378Z",
+          "lastUpdated": "2026-05-04T00:37:19.704Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\app\\(dashboard)\\process\\page.tsx"
+      },
+      "inventory": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:06:41.854Z",
+          "lastUpdated": "2026-05-04T03:48:32.306Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\app\\(dashboard)\\inventory\\page.tsx"
+      },
+      "logistics": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:06:48.137Z",
+          "lastUpdated": "2026-05-04T03:50:04.870Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\app\\(dashboard)\\logistics\\page.tsx"
+      },
+      "orders": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:06:54.072Z",
+          "lastUpdated": "2026-05-04T03:49:33.386Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\app\\(dashboard)\\orders\\page.tsx"
+      },
+      "master-data": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:07:00.675Z",
+          "lastUpdated": "2026-04-30T09:01:34.364Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\app\\(dashboard)\\master-data\\page.tsx"
+      },
+      "kpi": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:07:06.782Z",
+          "lastUpdated": "2026-05-04T03:48:56.877Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\app\\(dashboard)\\kpi\\page.tsx"
+      },
+      "data-hub": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:07:13.026Z",
+          "lastUpdated": "2026-04-30T08:07:13.026Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\app\\(dashboard)\\data-hub\\page.tsx"
+      },
+      "ai-agent": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:07:42.080Z",
+          "lastUpdated": "2026-05-04T02:49:45.215Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\app\\(dashboard)\\ai-agent\\page.tsx"
+      },
+      "admin": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:07:51.475Z",
+          "lastUpdated": "2026-04-30T08:07:51.475Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\app\\(dashboard)\\admin\\page.tsx"
+      },
+      "versions": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:24:59.322Z",
+          "lastUpdated": "2026-05-04T06:02:27.737Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\backend\\alembic\\versions\\0008_quotation_ai.py"
+      },
+      "shipment": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:27:37.068Z",
+          "lastUpdated": "2026-04-30T08:27:37.068Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\app\\(dashboard)\\shipment\\page.tsx"
+      },
+      "quotation": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:27:43.389Z",
+          "lastUpdated": "2026-04-30T08:27:43.389Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\app\\(dashboard)\\quotation\\page.tsx"
+      },
+      "system": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:27:50.466Z",
+          "lastUpdated": "2026-04-30T09:03:03.801Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\app\\(dashboard)\\system\\page.tsx"
+      },
+      "master": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T08:59:08.259Z",
+          "lastUpdated": "2026-05-04T01:08:01.984Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\backend\\app\\api\\v1\\master\\equipment.py"
+      },
+      "[wo_id]": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T09:02:41.815Z",
+          "lastUpdated": "2026-04-30T09:02:41.815Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\app\\(dashboard)\\process\\[wo_id]\\page.tsx"
+      },
+      "middleware": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-04-30T09:04:20.214Z",
+          "lastUpdated": "2026-04-30T09:04:36.148Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\backend\\app\\middleware\\audit.py"
+      },
+      "tasks": {
+        "phase": "do",
+        "phaseNumber": 3,
+        "matchRate": null,
+        "iterationCount": 0,
+        "requirements": [],
+        "documents": {},
+        "timestamps": {
+          "started": "2026-05-04T06:04:57.032Z",
+          "lastUpdated": "2026-05-04T06:04:57.032Z"
+        },
+        "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\backend\\app\\tasks\\cad_tasks.py"
+      }
+    },
+    "pipeline": {
+      "currentPhase": 2,
+      "level": "Enterprise",
+      "phaseHistory": [
+        {
+          "phase": 1,
+          "completedAt": "2026-04-30T06:30:00.000Z",
+          "note": "Planning — 3 PM agents, MASTER-PLAN.md"
+        },
+        {
+          "phase": 2,
+          "completedAt": "2026-04-30T07:30:00.000Z",
+          "note": "Design — DB schema, API spec, system architecture"
+        }
+      ]
+    },
+    "session": {
+      "startedAt": "2026-04-30T06:01:45.884Z",
+      "onboardingCompleted": true,
+      "lastActivity": "2026-05-04T06:04:57.032Z"
+    },
+    "history": [
+      {
+        "event": "plan_completed",
+        "feature": "mes-architecture",
+        "timestamp": "2026-04-30T06:30:00.000Z"
+      },
+      {
+        "event": "design_completed",
+        "feature": "mes-architecture",
+        "timestamp": "2026-04-30T07:30:00.000Z"
+      },
+      {
+        "timestamp": "2026-04-30T07:58:55.889Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T07:58:59.334Z",
+        "feature": "core",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T07:59:08.460Z",
+        "feature": "core",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T07:59:16.155Z",
+        "feature": "core",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T07:59:34.827Z",
+        "feature": "core",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T07:59:40.440Z",
+        "feature": "frontend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T07:59:49.416Z",
+        "feature": "core",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T07:59:53.689Z",
+        "feature": "frontend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T07:59:54.573Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:00:00.899Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:00:08.357Z",
+        "feature": "frontend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:00:10.798Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:00:18.033Z",
+        "feature": "scripts",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:00:22.877Z",
+        "feature": "scripts",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:00:35.039Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:00:35.317Z",
+        "feature": "scripts",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:00:36.458Z",
+        "feature": "frontend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:00:39.040Z",
+        "feature": "schemas",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:00:48.624Z",
+        "feature": "schemas",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:00:54.252Z",
+        "feature": "frontend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:01:12.747Z",
+        "feature": "schemas",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:01:14.974Z",
+        "feature": "frontend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:01:17.873Z",
+        "feature": "api",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:01:28.925Z",
+        "feature": "api",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:01:31.483Z",
+        "feature": "api",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:01:32.750Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:01:39.291Z",
+        "feature": "api",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:01:50.760Z",
+        "feature": "api",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:01:50.823Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:01:57.968Z",
+        "feature": "api",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:02:15.950Z",
+        "feature": "stores",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:02:26.767Z",
+        "feature": "stores",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:02:32.986Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:02:37.954Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:02:37.979Z",
+        "feature": "frontend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:02:54.226Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:02:54.510Z",
+        "feature": "frontend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:03:14.879Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:03:16.136Z",
+        "feature": "alembic",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:03:40.034Z",
+        "feature": "layout",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:03:55.568Z",
+        "feature": "scripts",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:04:01.990Z",
+        "feature": "layout",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:04:08.654Z",
+        "feature": "scripts",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:04:39.806Z",
+        "feature": "frontend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:04:46.990Z",
+        "feature": "frontend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:04:55.620Z",
+        "feature": "(auth)",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:05:18.260Z",
+        "feature": "login",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:05:30.720Z",
+        "feature": "(dashboard)",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:06:17.255Z",
+        "feature": "(dashboard)",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:06:35.378Z",
+        "feature": "process",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:06:41.854Z",
+        "feature": "inventory",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:06:48.137Z",
+        "feature": "logistics",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:06:54.072Z",
+        "feature": "orders",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:07:00.675Z",
+        "feature": "master-data",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:07:06.782Z",
+        "feature": "kpi",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:07:13.026Z",
+        "feature": "data-hub",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:07:42.081Z",
+        "feature": "ai-agent",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:07:51.475Z",
+        "feature": "admin",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:24:59.322Z",
+        "feature": "versions",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:25:15.047Z",
+        "feature": "schemas",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:25:36.387Z",
+        "feature": "core",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:25:42.466Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:25:48.573Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:25:54.323Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:26:00.635Z",
+        "feature": "schemas",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:26:08.418Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:26:22.993Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:26:38.094Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:26:45.575Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:26:56.814Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:27:09.355Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:27:15.478Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:27:28.563Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:27:37.068Z",
+        "feature": "shipment",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:27:43.389Z",
+        "feature": "quotation",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:27:50.466Z",
+        "feature": "system",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:27:58.404Z",
+        "feature": "frontend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:28:06.153Z",
+        "feature": "layout",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:28:39.088Z",
+        "feature": "scripts",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:28:47.928Z",
+        "feature": "scripts",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:55:57.626Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:56:03.939Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:56:14.100Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:56:21.453Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:56:30.186Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:56:46.834Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:56:55.317Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:57:02.966Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:57:34.132Z",
+        "feature": "versions",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:57:49.509Z",
+        "feature": "frontend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:57:59.117Z",
+        "feature": "versions",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:58:00.384Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:58:06.093Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:58:10.866Z",
+        "feature": "schemas",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:58:17.035Z",
+        "feature": "schemas",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:58:17.523Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:58:29.480Z",
+        "feature": "schemas",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:58:30.049Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:58:34.531Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:58:35.749Z",
+        "feature": "schemas",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:58:45.738Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:58:46.050Z",
+        "feature": "schemas",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:58:54.586Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:58:56.305Z",
+        "feature": "schemas",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:59:03.719Z",
+        "feature": "schemas",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:59:08.259Z",
+        "feature": "master",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:59:08.983Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:59:15.101Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:59:20.767Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:59:24.080Z",
+        "feature": "master",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:59:36.087Z",
+        "feature": "master",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:59:40.179Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:59:53.820Z",
+        "feature": "master",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T08:59:56.704Z",
+        "feature": "api",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:00:03.919Z",
+        "feature": "api",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:00:11.583Z",
+        "feature": "api",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:00:11.814Z",
+        "feature": "master",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:00:25.525Z",
+        "feature": "master",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:00:26.361Z",
+        "feature": "frontend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:00:34.784Z",
+        "feature": "frontend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:00:40.948Z",
+        "feature": "frontend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:00:41.076Z",
+        "feature": "master",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:01:07.917Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:01:29.528Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:01:34.364Z",
+        "feature": "master-data",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:02:00.742Z",
+        "feature": "process",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:02:09.229Z",
+        "feature": "master",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:02:21.433Z",
+        "feature": "master",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:02:37.368Z",
+        "feature": "master",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:02:41.815Z",
+        "feature": "[wo_id]",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:02:50.272Z",
+        "feature": "master",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:03:03.801Z",
+        "feature": "system",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:03:05.470Z",
+        "feature": "master",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:03:32.100Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:03:47.361Z",
+        "feature": "(dashboard)",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:03:52.750Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:04:15.003Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:04:20.214Z",
+        "feature": "middleware",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:04:36.148Z",
+        "feature": "middleware",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:04:44.798Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:04:50.508Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:04:55.731Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:06:09.156Z",
+        "feature": "schemas",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-04-30T09:06:37.969Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T00:19:47.702Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T00:27:33.184Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T00:28:29.090Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T00:36:13.815Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T00:36:19.622Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T00:36:27.477Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T00:36:33.195Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T00:36:37.748Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T00:36:48.978Z",
+        "feature": "process",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T00:37:19.704Z",
+        "feature": "process",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T01:07:55.916Z",
+        "feature": "master",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T01:07:56.465Z",
+        "feature": "master",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T01:07:57.383Z",
+        "feature": "master",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T01:08:01.050Z",
+        "feature": "master",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T01:08:01.984Z",
+        "feature": "master",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T01:08:10.037Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T01:08:14.817Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T01:08:26.637Z",
+        "feature": "versions",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:41:34.194Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:41:57.009Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:42:21.499Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:42:29.822Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:42:37.931Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:42:44.581Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:42:58.310Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:43:14.433Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:43:20.728Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:43:28.419Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:43:42.560Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:43:48.176Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:43:59.043Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:44:31.183Z",
+        "feature": "versions",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:44:36.577Z",
+        "feature": "versions",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:44:48.045Z",
+        "feature": "schemas",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:44:52.277Z",
+        "feature": "schemas",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:44:54.784Z",
+        "feature": "schemas",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:45:13.256Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:45:26.789Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:45:47.497Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:46:00.154Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:46:15.633Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:46:37.934Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:46:50.972Z",
+        "feature": "core",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:47:01.343Z",
+        "feature": "core",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:47:14.670Z",
+        "feature": "core",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:47:26.992Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:47:34.350Z",
+        "feature": "core",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:48:19.002Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:48:23.469Z",
+        "feature": "ui",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:48:38.579Z",
+        "feature": "frontend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:48:45.885Z",
+        "feature": "frontend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:48:52.329Z",
+        "feature": "frontend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:49:45.215Z",
+        "feature": "ai-agent",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:50:13.566Z",
+        "feature": "logistics",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T02:50:45.255Z",
+        "feature": "inventory",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:40:30.492Z",
+        "feature": "versions",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:40:42.198Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:40:56.783Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:41:05.524Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:41:14.881Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:41:24.534Z",
+        "feature": "schemas",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:41:33.245Z",
+        "feature": "schemas",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:41:42.909Z",
+        "feature": "schemas",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:42:05.417Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:42:36.404Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:42:58.961Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:43:13.338Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:43:20.600Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:43:40.260Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:43:46.350Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:43:58.658Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:44:09.673Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:44:20.690Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:44:27.612Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:44:35.355Z",
+        "feature": "v1",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:44:49.249Z",
+        "feature": "frontend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:45:01.130Z",
+        "feature": "frontend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:45:10.133Z",
+        "feature": "frontend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:48:32.306Z",
+        "feature": "inventory",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:48:56.877Z",
+        "feature": "kpi",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:49:33.386Z",
+        "feature": "orders",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:49:40.836Z",
+        "feature": "logistics",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:49:48.809Z",
+        "feature": "logistics",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:49:54.727Z",
+        "feature": "logistics",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T03:50:04.870Z",
+        "feature": "logistics",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T06:02:27.737Z",
+        "feature": "versions",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T06:02:38.471Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T06:02:46.451Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T06:02:58.664Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T06:03:10.208Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T06:03:23.241Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T06:03:33.132Z",
+        "feature": "core",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T06:03:35.757Z",
+        "feature": "schemas",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T06:03:45.207Z",
+        "feature": "schemas",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T06:03:48.701Z",
+        "feature": "schemas",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T06:03:58.977Z",
+        "feature": "schemas",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T06:04:13.373Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T06:04:24.209Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T06:04:54.631Z",
+        "feature": "backend",
+        "phase": "do",
+        "action": "updated"
+      },
+      {
+        "timestamp": "2026-05-04T06:04:57.032Z",
+        "feature": "tasks",
+        "phase": "do",
+        "action": "updated"
+      }
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "version": "1.0",
+  "enabled": false,
+  "teamName": "",
+  "feature": "sprint-6-vision-ml",
+  "pdcaPhase": "check",
+  "orchestrationPattern": "leader",
+  "ctoAgent": "opus",
+  "startedAt": "2026-05-04T07:23:28.003Z",
+  "lastUpdated": "2026-05-04T07:25:49.316Z",
+  "teammates": [],
+  "progress": {
+    "totalTasks": 0,
+    "completedTasks": 0,
+    "inProgressTasks": 0,
+    "failedTasks": 0,
+    "pendingTasks": 0
+  },
+  "recentMessages": [],
+  "sessionId": "bce95da2-06c7-4d10-a034-bac3a8514de5"
+}
