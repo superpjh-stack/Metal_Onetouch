@@ -23,7 +23,7 @@ async def list_suppliers(
     search: Optional[str] = Query(None, description="이름 또는 코드 검색"),
     grade: Optional[str] = Query(None, description="등급 필터 (A/B/C/D)"),
     is_active: Optional[bool] = Query(None),
-    db: DBSession,
+    db: DBSession = None,
 ):
     """공급업체 목록 조회"""
     filters = []
@@ -61,7 +61,7 @@ async def list_suppliers(
     status_code=status.HTTP_201_CREATED,
     dependencies=[_require_write],
 )
-async def create_supplier(body: SupplierCreate, db: DBSession):
+async def create_supplier(body: SupplierCreate, db: DBSession = None):
     """공급업체 생성"""
     existing = await db.execute(
         select(Supplier).where(Supplier.supplier_code == body.supplier_code)
@@ -80,7 +80,7 @@ async def create_supplier(body: SupplierCreate, db: DBSession):
 
 
 @router.get("/{supplier_id}", response_model=SupplierRead)
-async def get_supplier(supplier_id: uuid.UUID, db: DBSession):
+async def get_supplier(supplier_id: uuid.UUID, db: DBSession = None):
     """공급업체 단건 조회"""
     result = await db.execute(select(Supplier).where(Supplier.id == supplier_id))
     supplier = result.scalar_one_or_none()
@@ -96,7 +96,7 @@ async def get_supplier(supplier_id: uuid.UUID, db: DBSession):
     response_model=SupplierRead,
     dependencies=[_require_write],
 )
-async def update_supplier(supplier_id: uuid.UUID, body: SupplierUpdate, db: DBSession):
+async def update_supplier(supplier_id: uuid.UUID, body: SupplierUpdate, db: DBSession = None):
     """공급업체 수정"""
     result = await db.execute(select(Supplier).where(Supplier.id == supplier_id))
     supplier = result.scalar_one_or_none()
@@ -118,7 +118,7 @@ async def update_supplier(supplier_id: uuid.UUID, body: SupplierUpdate, db: DBSe
     status_code=status.HTTP_204_NO_CONTENT,
     dependencies=[_require_admin],
 )
-async def deactivate_supplier(supplier_id: uuid.UUID, db: DBSession):
+async def deactivate_supplier(supplier_id: uuid.UUID, db: DBSession = None):
     """공급업체 비활성화 (실제 삭제 아님)"""
     result = await db.execute(select(Supplier).where(Supplier.id == supplier_id))
     supplier = result.scalar_one_or_none()

@@ -73,7 +73,7 @@ async def list_users(
     role: Optional[str] = Query(None),
     user_status: Optional[str] = Query(None, alias="status"),
     search: Optional[str] = Query(None, description="이름 또는 이메일 검색"),
-    db: DBSession,
+    db: DBSession = None,
 ):
     """사용자 목록 조회 (admin / executive)"""
     filters = []
@@ -108,7 +108,7 @@ async def list_users(
     status_code=status.HTTP_201_CREATED,
     dependencies=[_require_admin],
 )
-async def create_user(body: UserCreate, db: DBSession):
+async def create_user(body: UserCreate, db: DBSession = None):
     """사용자 생성 (admin 전용)"""
     if body.role not in VALID_ROLES:
         raise HTTPException(
@@ -144,8 +144,7 @@ async def create_user(body: UserCreate, db: DBSession):
     dependencies=[_require_admin],
 )
 async def update_user(
-    user_id: uuid.UUID, body: UserUpdate, db: DBSession
-):
+    user_id: uuid.UUID, body: UserUpdate, db: DBSession = None):
     """사용자 역할/상태/부서 수정 (admin 전용)"""
     result = await db.execute(select(User).where(User.id == user_id))
     user = result.scalar_one_or_none()
@@ -182,7 +181,7 @@ async def update_user(
 async def reset_user_password(
     user_id: uuid.UUID,
     body: PasswordResetRequest,
-    db: DBSession,
+    db: DBSession = None,
 ):
     """사용자 비밀번호 초기화 (admin 전용)"""
     result = await db.execute(select(User).where(User.id == user_id))

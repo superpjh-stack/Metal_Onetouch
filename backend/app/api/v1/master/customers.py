@@ -22,7 +22,7 @@ async def list_customers(
     limit: int = Query(20, ge=1, le=100),
     search: Optional[str] = Query(None, description="이름 또는 코드 검색"),
     is_active: Optional[bool] = Query(None),
-    db: DBSession,
+    db: DBSession = None,
 ):
     """고객사 목록 조회"""
     filters = []
@@ -58,7 +58,7 @@ async def list_customers(
     status_code=status.HTTP_201_CREATED,
     dependencies=[_require_write],
 )
-async def create_customer(body: CustomerCreate, db: DBSession):
+async def create_customer(body: CustomerCreate, db: DBSession = None):
     """고객사 생성"""
     existing = await db.execute(
         select(Customer).where(Customer.customer_code == body.customer_code)
@@ -77,7 +77,7 @@ async def create_customer(body: CustomerCreate, db: DBSession):
 
 
 @router.get("/{customer_id}", response_model=CustomerRead)
-async def get_customer(customer_id: uuid.UUID, db: DBSession):
+async def get_customer(customer_id: uuid.UUID, db: DBSession = None):
     """고객사 단건 조회"""
     result = await db.execute(select(Customer).where(Customer.id == customer_id))
     customer = result.scalar_one_or_none()
@@ -93,7 +93,7 @@ async def get_customer(customer_id: uuid.UUID, db: DBSession):
     response_model=CustomerRead,
     dependencies=[_require_write],
 )
-async def update_customer(customer_id: uuid.UUID, body: CustomerUpdate, db: DBSession):
+async def update_customer(customer_id: uuid.UUID, body: CustomerUpdate, db: DBSession = None):
     """고객사 수정"""
     result = await db.execute(select(Customer).where(Customer.id == customer_id))
     customer = result.scalar_one_or_none()
@@ -115,7 +115,7 @@ async def update_customer(customer_id: uuid.UUID, body: CustomerUpdate, db: DBSe
     status_code=status.HTTP_204_NO_CONTENT,
     dependencies=[_require_admin],
 )
-async def deactivate_customer(customer_id: uuid.UUID, db: DBSession):
+async def deactivate_customer(customer_id: uuid.UUID, db: DBSession = None):
     """고객사 비활성화 (실제 삭제 아님)"""
     result = await db.execute(select(Customer).where(Customer.id == customer_id))
     customer = result.scalar_one_or_none()

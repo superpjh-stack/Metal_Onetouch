@@ -1,4 +1,4 @@
-"""원자재 입고 엔드포인트"""
+﻿"""원자재 입고 엔드포인트"""
 import uuid
 from datetime import date
 from typing import Optional
@@ -18,8 +18,8 @@ _require_manager = require_roles("admin", "production_manager")
 @router.post("/", response_model=ReceiptRead, status_code=201)
 async def create_receipt(
     body: ReceiptCreate,
-    db: DBSession,
-    user: CurrentUser,
+    db: DBSession = None,
+    user: CurrentUser = None,
     _: None = _require_manager,
 ):
     """입고 등록 + LOT 자동 생성"""
@@ -32,7 +32,7 @@ async def create_receipt(
 @router.get("/stats/supplier", response_model=list[SupplierReceiptStats])
 async def get_supplier_stats(
     period_days: int = Query(30, ge=1, le=365),
-    db: DBSession,
+    db: DBSession = None,
 ):
     """공급처별 입고 통계 — 반드시 GET / 보다 먼저 등록"""
     svc = InboundService(db)
@@ -46,7 +46,7 @@ async def list_receipts(
     supplier_id: Optional[uuid.UUID] = Query(None),
     date_from: Optional[date] = Query(None),
     date_to: Optional[date] = Query(None),
-    db: DBSession,
+    db: DBSession = None,
 ):
     """입고 목록 조회"""
     svc = InboundService(db)
@@ -57,11 +57,12 @@ async def list_receipts(
         page=page,
         limit=limit,
     )
-    return PaginatedResponse(data=items, total=total, page=page, limit=limit)
+    return PaginatedResponse.build(items=items, total=total, page=page, limit=limit)
 
 
 @router.get("/{receipt_id}", response_model=ReceiptRead)
-async def get_receipt(receipt_id: uuid.UUID, db: DBSession):
+async def get_receipt(receipt_id: uuid.UUID, db: DBSession = None):
     """입고 상세"""
     svc = InboundService(db)
     return await svc.get_receipt(receipt_id)
+

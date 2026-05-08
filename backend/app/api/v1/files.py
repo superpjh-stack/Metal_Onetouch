@@ -19,8 +19,8 @@ router = APIRouter(tags=["Files"])
 @router.post("/presigned-upload", response_model=PresignedUploadResponse, status_code=201)
 async def create_presigned_upload(
     body: PresignedUploadRequest,
-    db: DBSession,
-    user: CurrentUser,
+    db: DBSession = None,
+    user: CurrentUser = None,
 ):
     """Step 1: presigned PUT URL + file_id 발급"""
     svc = FileService(db)
@@ -32,8 +32,8 @@ async def create_presigned_upload(
 @router.post("/confirm-upload", response_model=UploadedFileRead)
 async def confirm_upload(
     body: ConfirmUploadRequest,
-    db: DBSession,
-    _: CurrentUser,
+    db: DBSession = None,
+    _: CurrentUser = None,
 ):
     """Step 2: 업로드 완료 확인 + hash 중복 체크"""
     svc = FileService(db)
@@ -45,8 +45,8 @@ async def confirm_upload(
 @router.get("/{file_id}/download-url", response_model=DownloadUrlResponse)
 async def get_download_url(
     file_id: uuid.UUID,
-    db: DBSession,
-    _: CurrentUser,
+    db: DBSession = None,
+    _: CurrentUser = None,
 ):
     """다운로드용 presigned URL 발급"""
     return await FileService(db).get_download_url(file_id)

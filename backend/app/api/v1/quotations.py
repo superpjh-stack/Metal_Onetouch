@@ -1,4 +1,4 @@
-"""견적서 엔드포인트"""
+﻿"""견적서 엔드포인트"""
 import uuid
 from typing import Optional
 
@@ -25,8 +25,8 @@ _require_sales = require_roles("admin", "sales", "production_manager")
 @router.post("/", response_model=QuotationRead, status_code=201)
 async def create_quotation(
     body: QuotationCreate,
-    db: DBSession,
-    user: CurrentUser,
+    db: DBSession = None,
+    user: CurrentUser = None,
     _: None = _require_sales,
 ):
     """CAD 도면 기반 자동 견적 생성"""
@@ -38,8 +38,8 @@ async def create_quotation(
 
 @router.get("/", response_model=PaginatedResponse[QuotationSummary])
 async def list_quotations(
-    db: DBSession,
-    _: CurrentUser,
+    db: DBSession = None,
+    _: CurrentUser = None,
     page: int = Query(1, ge=1),
     limit: int = Query(20, ge=1, le=100),
     customer_id: Optional[uuid.UUID] = Query(None),
@@ -53,11 +53,11 @@ async def list_quotations(
         page=page,
         limit=limit,
     )
-    return PaginatedResponse(data=items, total=total, page=page, limit=limit)
+    return PaginatedResponse.build(items=items, total=total, page=page, limit=limit)
 
 
 @router.get("/{quotation_id}", response_model=QuotationRead)
-async def get_quotation(quotation_id: uuid.UUID, db: DBSession, _: CurrentUser):
+async def get_quotation(quotation_id: uuid.UUID, db: DBSession = None, _: CurrentUser = None):
     """견적 상세 (항목 포함)"""
     return await QuotationService(db).get_quotation(quotation_id)
 
@@ -66,8 +66,8 @@ async def get_quotation(quotation_id: uuid.UUID, db: DBSession, _: CurrentUser):
 async def update_items(
     quotation_id: uuid.UUID,
     body: list[QuotationItemUpdate],
-    db: DBSession,
-    user: CurrentUser,
+    db: DBSession = None,
+    user: CurrentUser = None,
     _: None = _require_sales,
 ):
     """견적 항목 단가/수량 수정 (draft 상태만)"""
@@ -80,8 +80,8 @@ async def update_items(
 @router.post("/{quotation_id}/submit", response_model=QuotationRead)
 async def submit_quotation(
     quotation_id: uuid.UUID,
-    db: DBSession,
-    user: CurrentUser,
+    db: DBSession = None,
+    user: CurrentUser = None,
     _: None = _require_sales,
 ):
     """견적 제출 (draft → submitted)"""
@@ -95,8 +95,8 @@ async def submit_quotation(
 async def link_order(
     quotation_id: uuid.UUID,
     body: QuotationLinkOrder,
-    db: DBSession,
-    user: CurrentUser,
+    db: DBSession = None,
+    user: CurrentUser = None,
     _: None = _require_sales,
 ):
     """수주 연결"""
@@ -109,8 +109,8 @@ async def link_order(
 @router.get("/{quotation_id}/similar", response_model=list[QuotationSummary])
 async def similar_quotations(
     quotation_id: uuid.UUID,
-    db: DBSession,
-    _: CurrentUser,
+    db: DBSession = None,
+    _: CurrentUser = None,
     top_k: int = Query(5, ge=1, le=20),
 ):
     """유사 견적 검색 (Qdrant 벡터 / DB 폴백)"""
@@ -120,8 +120,8 @@ async def similar_quotations(
 @router.post("/{quotation_id}/bom", response_model=BomRead, status_code=201)
 async def generate_bom(
     quotation_id: uuid.UUID,
-    db: DBSession,
-    user: CurrentUser,
+    db: DBSession = None,
+    user: CurrentUser = None,
 ):
     """확정 견적에서 BOM 자동생성"""
     result = await BomService(db).generate_from_quotation(quotation_id, created_by=user.id)
@@ -130,6 +130,7 @@ async def generate_bom(
 
 
 @router.get("/{quotation_id}/bom", response_model=Optional[BomRead])
-async def get_bom(quotation_id: uuid.UUID, db: DBSession, _: CurrentUser):
+async def get_bom(quotation_id: uuid.UUID, db: DBSession = None, _: CurrentUser = None):
     """견적서 BOM 조회"""
     return await BomService(db).get_bom(quotation_id)
+

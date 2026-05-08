@@ -41,7 +41,7 @@ router = APIRouter(prefix="/lots", tags=["LOT 관리"])
     description="신규 LOT을 생성합니다. lot_id는 L{YYYYMMDD}-{SEQ} 형식으로 자동 부여됩니다.",
     dependencies=[require_production_manager],
 )
-async def create_lot(body: LotCreate, db: DBSession, current_user: CurrentUser):
+async def create_lot(body: LotCreate, db: DBSession = None, current_user: CurrentUser = None):
     lot_id = await Lot.generate_lot_id(db)
 
     lot = Lot(
@@ -96,7 +96,7 @@ async def create_lot(body: LotCreate, db: DBSession, current_user: CurrentUser):
 )
 async def list_lots(
     request: Request,
-    db: DBSession,
+    db: DBSession = None,
     page: int = Query(default=1, ge=1, description="페이지 번호"),
     limit: int = Query(default=20, ge=1, le=100, alias="page_size", description="페이지 크기"),
     status_filter: Optional[str] = Query(default=None, alias="status", description="상태 필터"),
@@ -150,7 +150,7 @@ async def list_lots(
     summary="LOT 상세 조회",
     dependencies=[require_any_role],
 )
-async def get_lot(lot_id: str, db: DBSession):
+async def get_lot(lot_id: str, db: DBSession = None):
     result = await db.execute(select(Lot).where(Lot.lot_id == lot_id))
     lot = result.scalar_one_or_none()
     if lot is None:
@@ -171,8 +171,8 @@ async def get_lot(lot_id: str, db: DBSession):
 async def update_lot_status(
     lot_id: str,
     body: LotStatusUpdate,
-    db: DBSession,
-    current_user: CurrentUser,
+    db: DBSession = None,
+    current_user: CurrentUser = None,
 ):
     result = await db.execute(select(Lot).where(Lot.lot_id == lot_id))
     lot = result.scalar_one_or_none()
@@ -226,8 +226,8 @@ async def update_lot_status(
 async def update_lot(
     lot_id: str,
     body: LotUpdate,
-    db: DBSession,
-    current_user: CurrentUser,
+    db: DBSession = None,
+    current_user: CurrentUser = None,
 ):
     result = await db.execute(select(Lot).where(Lot.lot_id == lot_id))
     lot = result.scalar_one_or_none()
@@ -274,7 +274,7 @@ async def update_lot(
     ),
     dependencies=[require_production_manager],
 )
-async def cancel_lot(lot_id: str, db: DBSession, current_user: CurrentUser):
+async def cancel_lot(lot_id: str, db: DBSession = None, current_user: CurrentUser = None):
     from app.models.lot import LOT_FINAL_STATUSES  # noqa: PLC0415
 
     result = await db.execute(select(Lot).where(Lot.lot_id == lot_id))
@@ -318,7 +318,7 @@ async def cancel_lot(lot_id: str, db: DBSession, current_user: CurrentUser):
     description="LOT의 전체 상태 변경 이력을 시간 순으로 반환합니다.",
     dependencies=[require_any_role],
 )
-async def get_lot_history(lot_id: str, db: DBSession):
+async def get_lot_history(lot_id: str, db: DBSession = None):
     result = await db.execute(select(Lot).where(Lot.lot_id == lot_id))
     lot = result.scalar_one_or_none()
     if lot is None:
@@ -364,7 +364,7 @@ async def get_lot_history(lot_id: str, db: DBSession):
     description="원자재부터 출하까지 LOT의 전체 이력 트리를 생성합니다.",
     dependencies=[require_any_role],
 )
-async def get_lot_traceability(lot_id: str, db: DBSession):
+async def get_lot_traceability(lot_id: str, db: DBSession = None):
     result = await db.execute(select(Lot).where(Lot.lot_id == lot_id))
     lot = result.scalar_one_or_none()
     if lot is None:

@@ -55,6 +55,10 @@ class Shipment(Base, UUIDMixin):
         cascade="all, delete-orphan",
     )
 
+    @property
+    def customer_name(self) -> str | None:
+        return self.customer.name if self.customer else None
+
     def __repr__(self) -> str:
         return f"<Shipment {self.shipment_number} [{self.status}]>"
 

@@ -19,8 +19,8 @@ router = APIRouter(tags=["AI Agent"])
 @router.post("/inbound", response_model=AgentQueryResponse)
 async def query_inbound_agent(
     body: AgentQueryRequest,
-    db: DBSession,
-    current_user: CurrentUser,
+    db: DBSession = None,
+    current_user: CurrentUser = None,
 ):
     """입고 AI Agent 질의 — LangChain + Qdrant RAG (inbound_history)"""
     return await AIAgentService(db).query(
@@ -34,8 +34,8 @@ async def query_inbound_agent(
 @router.post("/outbound", response_model=AgentQueryResponse)
 async def query_outbound_agent(
     body: AgentQueryRequest,
-    db: DBSession,
-    current_user: CurrentUser,
+    db: DBSession = None,
+    current_user: CurrentUser = None,
 ):
     """출하 AI Agent 질의 + 리스크 등급 (GREEN/YELLOW/RED) 반환"""
     return await AIAgentService(db).query(
@@ -50,8 +50,8 @@ async def query_outbound_agent(
 async def list_conversations(
     agent_type: Optional[str] = Query(None, pattern="^(inbound|outbound|integrated)$"),
     limit: int = Query(20, ge=1, le=50),
-    db: DBSession,
-    current_user: CurrentUser,
+    db: DBSession = None,
+    current_user: CurrentUser = None,
 ):
     """현재 사용자 대화 목록"""
     conversations = await AIAgentService(db).list_conversations(
@@ -68,8 +68,8 @@ async def list_conversations(
 )
 async def get_conversation_messages(
     conversation_id: uuid.UUID,
-    db: DBSession,
-    current_user: CurrentUser,
+    db: DBSession = None,
+    current_user: CurrentUser = None,
 ):
     """특정 대화의 메시지 목록"""
     messages = await AIAgentService(db).get_messages(

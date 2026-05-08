@@ -1,8 +1,24 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
+import axios from 'axios'
 import { authApi } from '@/lib/api/auth'
 import { STORAGE_KEYS } from '@/lib/constants'
 import type { User, LoginInput } from '@/types'
+
+// 백엔드 /me 응답 → User 타입 변환
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function mapMeToUser(d: any): User {
+  return {
+    id: d.id,
+    email: d.email,
+    name: d.full_name ?? d.name ?? '',
+    role: d.role,
+    department: d.department,
+    isActive: d.is_active ?? d.isActive ?? true,
+    createdAt: d.created_at ?? d.createdAt ?? '',
+    updatedAt: d.updated_at ?? d.updatedAt ?? '',
+  }
+}
 
 // ============================================================
 // Auth 스토어 타입
@@ -46,13 +62,21 @@ export const useAuthStore = create<AuthStore>()(
         set({ isLoading: true, error: null })
         try {
           const response = await authApi.login(credentials)
-          const { user, accessToken, refreshToken } = response.data.data
+          // 백엔드: { access_token, refresh_token, token_type, expires_in }
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const data = response.data as any
+          const accessToken: string = data.access_token ?? data.accessToken
+          const refreshToken: string = data.refresh_token ?? data.refreshToken
 
-          // 토큰을 로컬 스토리지에도 저장 (axios 인터셉터가 사용)
           if (typeof window !== 'undefined') {
             localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, accessToken)
             localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, refreshToken)
           }
+
+          // 토큰을 axios 기본 헤더에 주입 후 /me 호출
+          axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`
+          const meRes = await authApi.getMe()
+          const user = mapMeToUser(meRes.data)
 
           set({
             user,
@@ -63,9 +87,10 @@ export const useAuthStore = create<AuthStore>()(
             error: null,
           })
         } catch (error: unknown) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const errData = (error as any)?.response?.data
           const message =
-            (error as { response?: { data?: { error?: { message?: string } } } })
-              ?.response?.data?.error?.message ?? '로그인에 실패했습니다.'
+            errData?.detail ?? errData?.error?.message ?? '로그인에 실패했습니다.'
           set({ isLoading: false, error: message, isAuthenticated: false })
           throw error
         }
@@ -127,7 +152,8 @@ export const useAuthStore = create<AuthStore>()(
 
         try {
           const response = await authApi.getMe()
-          set({ user: response.data.data, isAuthenticated: true })
+          const user = mapMeToUser(response.data)
+          set({ user, isAuthenticated: true })
         } catch {
           // 토큰이 만료된 경우 로그아웃
           if (typeof window !== 'undefined') {

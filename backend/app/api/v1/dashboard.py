@@ -13,14 +13,14 @@ router = APIRouter(tags=["Dashboard"])
 
 
 @router.get("/summary", response_model=DashboardSummary)
-async def get_dashboard_summary(db: DBSession):
+async def get_dashboard_summary(db: DBSession = None):
     return await DashboardService(db).get_dashboard_summary()
 
 
 @router.get("/production-trend", response_model=list[ProductionTrendItem])
 async def get_production_trend(
     days: int = Query(default=7, ge=1, le=90),
-    db: DBSession,
+    db: DBSession = None,
 ):
     return await DashboardService(db).get_production_trend(days=days)
 
@@ -28,6 +28,6 @@ async def get_production_trend(
 @router.get("/lot-status", response_model=list[LotStatusItem])
 async def get_lot_status(
     limit: int = Query(default=5, ge=1, le=50),
-    db: DBSession,
+    db: DBSession = None,
 ):
     return await DashboardService(db).get_lot_status_summary(limit=limit)

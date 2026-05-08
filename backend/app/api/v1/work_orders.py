@@ -51,7 +51,7 @@ async def list_work_orders(
     assigned_to: Optional[uuid.UUID] = Query(None),
     date_from: Optional[date] = Query(None),
     date_to: Optional[date] = Query(None),
-    db: DBSession,
+    db: DBSession = None,
 ):
     """작업지시 목록 조회"""
     filters = []
@@ -98,8 +98,8 @@ async def list_work_orders(
 )
 async def create_work_order(
     body: WorkOrderCreate,
-    db: DBSession,
-    current_user: CurrentUser,
+    db: DBSession = None,
+    current_user: CurrentUser = None,
 ):
     """작업지시 생성"""
     wo_number = await WorkOrderService(db).generate_wo_number()
@@ -120,7 +120,7 @@ async def create_work_order(
 
 
 @router.get("/{wo_id}", response_model=WorkOrderRead)
-async def get_work_order(wo_id: uuid.UUID, db: DBSession):
+async def get_work_order(wo_id: uuid.UUID, db: DBSession = None):
     """작업지시 단건 조회 (공정 실적 포함)"""
     wo = await _get_wo_or_404(wo_id, db)
     return WorkOrderRead.model_validate(wo)
@@ -134,7 +134,7 @@ async def get_work_order(wo_id: uuid.UUID, db: DBSession):
 async def update_work_order(
     wo_id: uuid.UUID,
     body: WorkOrderUpdate,
-    db: DBSession,
+    db: DBSession = None,
 ):
     """작업지시 수정"""
     result = await db.execute(
@@ -166,7 +166,7 @@ async def update_work_order(
 async def update_work_order_status(
     wo_id: uuid.UUID,
     body: WorkOrderStatusUpdate,
-    db: DBSession,
+    db: DBSession = None,
 ):
     """작업지시 상태 전환 (상태 머신 검증 포함)"""
     result = await db.execute(
@@ -192,7 +192,7 @@ async def update_work_order_status(
 async def add_process_result(
     wo_id: uuid.UUID,
     body: ProcessResultCreate,
-    db: DBSession,
+    db: DBSession = None,
 ):
     """공정 실적 등록 (불변 레코드)"""
     result = await db.execute(select(WorkOrder).where(WorkOrder.id == wo_id))
@@ -214,7 +214,7 @@ async def add_process_result(
 
 
 @router.get("/{wo_id}/results", response_model=list[ProcessResultRead])
-async def list_process_results(wo_id: uuid.UUID, db: DBSession):
+async def list_process_results(wo_id: uuid.UUID, db: DBSession = None):
     """작업지시의 공정 실적 목록"""
     wo_result = await db.execute(select(WorkOrder.id).where(WorkOrder.id == wo_id))
     if not wo_result.scalar_one_or_none():

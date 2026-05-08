@@ -34,7 +34,7 @@ bearer_scheme = HTTPBearer(auto_error=False)
     summary="로그인",
     description="이메일/비밀번호로 로그인하여 JWT 토큰을 발급받습니다.",
 )
-async def login(body: LoginRequest, db: DBSession):
+async def login(body: LoginRequest, db: DBSession = None):
     # 사용자 조회
     result = await db.execute(select(User).where(User.email == body.email))
     user: User | None = result.scalar_one_or_none()
@@ -78,7 +78,7 @@ async def login(body: LoginRequest, db: DBSession):
     description="현재 Access Token을 블랙리스트에 등록하여 무효화합니다.",
 )
 async def logout(
-    current_user: CurrentUser,
+    current_user: CurrentUser = None,
     credentials: HTTPAuthorizationCredentials = Depends(bearer_scheme),
 ):
     if credentials:
@@ -93,7 +93,7 @@ async def logout(
     summary="토큰 갱신",
     description="Refresh Token을 사용하여 새 Access Token을 발급합니다.",
 )
-async def refresh_token(body: RefreshRequest, db: DBSession):
+async def refresh_token(body: RefreshRequest, db: DBSession = None):
     # Refresh token 검증
     payload = verify_token(body.refresh_token, expected_type="refresh")
 
@@ -137,7 +137,7 @@ async def refresh_token(body: RefreshRequest, db: DBSession):
     summary="현재 사용자 정보",
     description="Bearer 토큰으로 인증된 현재 사용자의 프로필을 반환합니다.",
 )
-async def get_me(current_user: CurrentUser):
+async def get_me(current_user: CurrentUser = None):
     return UserMeResponse(
         id=str(current_user.id),
         email=current_user.email,

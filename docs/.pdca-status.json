@@ -1,7 +1,8 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-05-04T07:13:43.371Z",
+  "lastUpdated": "2026-05-07T10:35:27.497Z",
   "activeFeatures": [
+    "sprint-9-frontend-ui",
     "mes-architecture",
     "backend",
     "core",
@@ -38,8 +39,27 @@
     "annotation",
     "training"
   ],
-  "primaryFeature": "sprint-6-vision-ml",
+  "primaryFeature": "sprint-9-frontend-ui",
   "features": {
+    "sprint-9-frontend-ui": {
+      "phase": "completed",
+      "planCompleted": true,
+      "designCompleted": true,
+      "doCompleted": true,
+      "checkCompleted": true,
+      "reportCompleted": true,
+      "matchRate": 100,
+      "iterationCount": 0,
+      "startedAt": "2026-05-07T09:00:00.000Z",
+      "completedAt": "2026-05-07T10:35:00.000Z",
+      "updatedAt": "2026-05-07T10:35:00.000Z",
+      "documents": {
+        "plan": "docs/01-plan/features/sprint-9-frontend-ui.plan.md",
+        "design": "docs/02-design/features/sprint-9-frontend-ui.design.md",
+        "analysis": "docs/03-analysis/sprint-9-frontend-ui.analysis.md",
+        "report": "docs/04-report/features/sprint-9-frontend-ui.report.md"
+      }
+    },
     "sprint-6-vision-ml": {
       "phase": "completed",
       "planCompleted": true,
@@ -166,9 +186,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-04-30T07:58:55.889Z",
-        "lastUpdated": "2026-05-04T07:04:34.575Z"
+        "lastUpdated": "2026-05-07T10:35:27.497Z"
       },
-      "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\backend\\app\\services\\bom_service.py"
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\backend\\app\\services\\shipment_service.py"
     },
     "core": {
       "phase": "do",
@@ -179,9 +199,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-04-30T07:58:59.334Z",
-        "lastUpdated": "2026-05-04T07:06:45.509Z"
+        "lastUpdated": "2026-05-06T07:39:23.809Z"
       },
-      "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\backend\\app\\core\\config.py"
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\backend\\app\\core\\db_compat.py"
     },
     "frontend": {
       "phase": "do",
@@ -192,9 +212,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-04-30T07:59:40.440Z",
-        "lastUpdated": "2026-05-04T07:08:32.620Z"
+        "lastUpdated": "2026-05-04T14:31:04.139Z"
       },
-      "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\lib\\hooks\\use-bom.ts"
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\lib\\utils\\index.ts"
     },
     "scripts": {
       "phase": "do",
@@ -205,9 +225,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-04-30T08:00:18.033Z",
-        "lastUpdated": "2026-04-30T08:28:47.928Z"
+        "lastUpdated": "2026-05-06T04:21:46.641Z"
       },
-      "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\backend\\scripts\\seed_master_data.py"
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\backend\\scripts\\init_pg_db.py"
     },
     "schemas": {
       "phase": "do",
@@ -218,9 +238,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-04-30T08:00:39.040Z",
-        "lastUpdated": "2026-05-04T07:01:23.549Z"
+        "lastUpdated": "2026-05-04T14:20:05.030Z"
       },
-      "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\backend\\app\\schemas\\bom.py"
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\backend\\app\\schemas\\ai_agent.py"
     },
     "api": {
       "phase": "do",
@@ -231,9 +251,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-04-30T08:01:17.873Z",
-        "lastUpdated": "2026-04-30T09:00:11.583Z"
+        "lastUpdated": "2026-05-04T19:46:24.487Z"
       },
-      "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\lib\\api\\dashboard.ts"
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\lib\\api\\work-orders.ts"
     },
     "v1": {
       "phase": "do",
@@ -244,9 +264,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-04-30T08:01:32.750Z",
-        "lastUpdated": "2026-05-04T07:06:23.473Z"
+        "lastUpdated": "2026-05-07T10:35:21.643Z"
       },
-      "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\backend\\app\\api\\v1\\router.py"
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\backend\\app\\api\\v1\\shipments.py"
     },
     "stores": {
       "phase": "do",
@@ -257,9 +277,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-04-30T08:02:15.950Z",
-        "lastUpdated": "2026-04-30T08:02:26.767Z"
+        "lastUpdated": "2026-05-04T13:59:05.751Z"
       },
-      "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\lib\\stores\\ui-store.ts"
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\lib\\stores\\auth-store.ts"
     },
     "ui": {
       "phase": "do",
@@ -296,7 +316,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-04-30T08:03:40.034Z",
-        "lastUpdated": "2026-04-30T08:28:06.153Z"
+        "lastUpdated": "2026-05-07T09:11:55.213Z"
       },
       "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\components\\layout\\sidebar.tsx"
     },
@@ -322,7 +342,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-04-30T08:05:18.260Z",
-        "lastUpdated": "2026-04-30T08:05:18.260Z"
+        "lastUpdated": "2026-05-06T04:47:02.519Z"
       },
       "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\app\\(auth)\\login\\page.tsx"
     },
@@ -426,7 +446,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-04-30T08:07:13.026Z",
-        "lastUpdated": "2026-04-30T08:07:13.026Z"
+        "lastUpdated": "2026-05-04T14:29:50.947Z"
       },
       "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\app\\(dashboard)\\data-hub\\page.tsx"
     },
@@ -478,7 +498,7 @@
       "documents": {},
       "timestamps": {
         "started": "2026-04-30T08:27:37.068Z",
-        "lastUpdated": "2026-04-30T08:27:37.068Z"
+        "lastUpdated": "2026-05-07T09:12:34.125Z"
       },
       "lastFile": "C:\\gerardo\\01 SmallSF\\Metal-Onetouch\\frontend\\src\\app\\(dashboard)\\shipment\\page.tsx"
     },
@@ -619,7 +639,7 @@
   "session": {
     "startedAt": "2026-04-30T06:01:45.884Z",
     "onboardingCompleted": true,
-    "lastActivity": "2026-05-04T07:13:43.371Z"
+    "lastActivity": "2026-05-07T10:35:27.497Z"
   },
   "history": [
     {
@@ -2483,6 +2503,342 @@
     {
       "timestamp": "2026-05-04T07:13:43.370Z",
       "feature": "quotation",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T12:24:33.456Z",
+      "feature": "core",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T12:25:37.458Z",
+      "feature": "core",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T12:25:49.068Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T12:29:51.229Z",
+      "feature": "core",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T12:30:00.163Z",
+      "feature": "backend",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T12:30:19.854Z",
+      "feature": "backend",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T13:08:34.851Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T13:16:58.383Z",
+      "feature": "core",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T13:55:48.299Z",
+      "feature": "login",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T13:55:55.476Z",
+      "feature": "login",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T13:58:44.127Z",
+      "feature": "stores",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T13:58:58.238Z",
+      "feature": "stores",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T13:59:05.751Z",
+      "feature": "stores",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T13:59:14.291Z",
+      "feature": "api",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T14:04:20.032Z",
+      "feature": "core",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T14:04:27.239Z",
+      "feature": "core",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T14:19:11.165Z",
+      "feature": "data-hub",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T14:19:31.457Z",
+      "feature": "backend",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T14:19:58.793Z",
+      "feature": "schemas",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T14:20:05.030Z",
+      "feature": "schemas",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T14:29:50.947Z",
+      "feature": "data-hub",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T14:31:04.139Z",
+      "feature": "frontend",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T14:37:45.909Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T14:37:55.288Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T14:38:10.846Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T14:38:24.499Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T15:02:47.212Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T15:03:58.492Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T15:10:59.724Z",
+      "feature": "backend",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T15:11:11.730Z",
+      "feature": "backend",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T15:11:47.628Z",
+      "feature": "backend",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T19:44:35.463Z",
+      "feature": "api",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T19:46:02.870Z",
+      "feature": "api",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T19:46:06.802Z",
+      "feature": "api",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T19:46:10.984Z",
+      "feature": "api",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T19:46:16.046Z",
+      "feature": "api",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T19:46:19.937Z",
+      "feature": "api",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T19:46:24.487Z",
+      "feature": "api",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-04T19:51:46.766Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-06T04:21:30.938Z",
+      "feature": "core",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-06T04:21:46.641Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-06T04:46:51.965Z",
+      "feature": "login",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-06T04:47:02.519Z",
+      "feature": "login",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-06T07:39:23.809Z",
+      "feature": "core",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-07T08:44:16.558Z",
+      "feature": "backend",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-07T08:59:51.250Z",
+      "feature": "backend",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-07T09:00:00.680Z",
+      "feature": "backend",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-07T09:11:41.638Z",
+      "feature": "shipment",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-07T09:11:47.478Z",
+      "feature": "layout",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-07T09:11:55.213Z",
+      "feature": "layout",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-07T09:12:34.125Z",
+      "feature": "shipment",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-07T10:35:03.872Z",
+      "feature": "backend",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-07T10:35:10.019Z",
+      "feature": "v1",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-07T10:35:15.422Z",
+      "feature": "v1",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-07T10:35:21.643Z",
+      "feature": "v1",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-05-07T10:35:27.497Z",
+      "feature": "backend",
       "phase": "do",
       "action": "updated"
     }

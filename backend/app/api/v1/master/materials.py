@@ -53,7 +53,7 @@ async def list_materials(
     category: Optional[str] = Query(None),
     is_active: Optional[bool] = Query(None),
     low_stock: Optional[bool] = Query(None, description="재고 부족 항목만"),
-    db: DBSession,
+    db: DBSession = None,
 ):
     """원자재 목록 조회"""
     filters = _build_filters(search, category, is_active, low_stock)
@@ -83,7 +83,7 @@ async def list_materials(
     status_code=status.HTTP_201_CREATED,
     dependencies=[_require_write],
 )
-async def create_material(body: MaterialCreate, db: DBSession):
+async def create_material(body: MaterialCreate, db: DBSession = None):
     """원자재 생성"""
     existing = await db.execute(
         select(RawMaterial).where(RawMaterial.material_code == body.material_code)
@@ -107,7 +107,7 @@ async def create_material(body: MaterialCreate, db: DBSession):
 
 
 @router.get("/{material_id}", response_model=MaterialRead)
-async def get_material(material_id: uuid.UUID, db: DBSession):
+async def get_material(material_id: uuid.UUID, db: DBSession = None):
     """원자재 단건 조회"""
     result = await db.execute(
         select(RawMaterial)
@@ -127,7 +127,7 @@ async def get_material(material_id: uuid.UUID, db: DBSession):
     response_model=MaterialRead,
     dependencies=[_require_write],
 )
-async def update_material(material_id: uuid.UUID, body: MaterialUpdate, db: DBSession):
+async def update_material(material_id: uuid.UUID, body: MaterialUpdate, db: DBSession = None):
     """원자재 수정"""
     result = await db.execute(
         select(RawMaterial).where(RawMaterial.id == material_id)
@@ -155,7 +155,7 @@ async def update_material(material_id: uuid.UUID, body: MaterialUpdate, db: DBSe
     status_code=status.HTTP_204_NO_CONTENT,
     dependencies=[_require_admin],
 )
-async def deactivate_material(material_id: uuid.UUID, db: DBSession):
+async def deactivate_material(material_id: uuid.UUID, db: DBSession = None):
     """원자재 비활성화 (실제 삭제 아님)"""
     result = await db.execute(
         select(RawMaterial).where(RawMaterial.id == material_id)

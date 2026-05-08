@@ -16,7 +16,7 @@ _require_admin = require_roles("admin", "production_manager")
 
 
 @router.get("/process-prices", response_model=list[ProcessPriceRead])
-async def list_process_prices(db: DBSession, _: CurrentUser):
+async def list_process_prices(db: DBSession = None, _: CurrentUser = None):
     """공정 단가 목록"""
     return await PriceMasterService(db).list_process_prices()
 
@@ -24,8 +24,8 @@ async def list_process_prices(db: DBSession, _: CurrentUser):
 @router.put("/process-prices", response_model=list[ProcessPriceRead])
 async def upsert_process_prices(
     body: list[ProcessPriceUpsert],
-    db: DBSession,
-    user: CurrentUser,
+    db: DBSession = None,
+    user: CurrentUser = None,
     _: None = _require_admin,
 ):
     """공정 단가 일괄 upsert"""
@@ -36,7 +36,7 @@ async def upsert_process_prices(
 
 
 @router.get("/material-prices", response_model=list[MaterialPriceRead])
-async def list_material_prices(db: DBSession, _: CurrentUser):
+async def list_material_prices(db: DBSession = None, _: CurrentUser = None):
     """소재 단가 목록"""
     return await PriceMasterService(db).list_material_prices()
 
@@ -44,8 +44,8 @@ async def list_material_prices(db: DBSession, _: CurrentUser):
 @router.put("/material-prices", response_model=list[MaterialPriceRead])
 async def upsert_material_prices(
     body: list[MaterialPriceUpsert],
-    db: DBSession,
-    user: CurrentUser,
+    db: DBSession = None,
+    user: CurrentUser = None,
     _: None = _require_admin,
 ):
     """소재 단가 일괄 upsert"""

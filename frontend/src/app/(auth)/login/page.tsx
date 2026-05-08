@@ -55,6 +55,15 @@ export default function LoginPage() {
     },
   })
 
+  const quickLogin = async () => {
+    clearError()
+    try {
+      await login({ email: 'admin@onetouch.com', password: 'Admin1234!' })
+    } catch {
+      // 에러는 useAuth store에서 관리
+    }
+  }
+
   const onSubmit = async (data: LoginFormValues) => {
     clearError()
     try {
@@ -186,8 +195,21 @@ export default function LoginPage() {
         </button>
       </form>
 
+      {/* 퀵 로그인 */}
+      <div className="mt-4 rounded-lg border border-dashed border-muted-foreground/30 p-3">
+        <p className="mb-2 text-center text-xs text-muted-foreground">개발용 빠른 로그인</p>
+        <button
+          type="button"
+          onClick={quickLogin}
+          disabled={isLoading}
+          className="w-full rounded-md border border-muted-foreground/20 bg-muted px-3 py-2 text-xs text-muted-foreground hover:bg-muted/80 disabled:opacity-50 transition-colors"
+        >
+          admin@onetouch.com
+        </button>
+      </div>
+
       {/* 하단 안내 */}
-      <p className="mt-6 text-center text-xs text-muted-foreground">
+      <p className="mt-4 text-center text-xs text-muted-foreground">
         계정 문의:{' '}
         <span className="font-medium text-foreground">시스템 관리자</span>에게
         연락하세요.

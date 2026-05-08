@@ -33,7 +33,7 @@ async def list_inspections(
     lot_id: Optional[uuid.UUID] = Query(None),
     result: Optional[str] = Query(None),
     inspection_type: Optional[str] = Query(None),
-    db: DBSession,
+    db: DBSession = None,
 ):
     """품질 검사 목록 조회"""
     from sqlalchemy import func
@@ -73,8 +73,8 @@ async def list_inspections(
 )
 async def create_inspection(
     body: QualityInspectionCreate,
-    db: DBSession,
-    current_user: CurrentUser,
+    db: DBSession = None,
+    current_user: CurrentUser = None,
 ):
     """품질 검사 등록 + 불량 시 LOT 상태 자동 전환"""
     inspection = await QualityService(db).create_inspection(
@@ -87,7 +87,7 @@ async def create_inspection(
 async def get_defect_stats(
     group_by: str = Query("supplier", pattern="^(supplier|process_type|lot)$"),
     period_days: int = Query(30, ge=1, le=365),
-    db: DBSession,
+    db: DBSession = None,
 ):
     """불량률 집계"""
     return await QualityService(db).get_defect_stats(
@@ -96,7 +96,7 @@ async def get_defect_stats(
 
 
 @router.get("/{inspection_id}", response_model=QualityInspectionRead)
-async def get_inspection(inspection_id: uuid.UUID, db: DBSession):
+async def get_inspection(inspection_id: uuid.UUID, db: DBSession = None):
     """검사 상세 조회 (불량 상세 포함)"""
     result = await db.execute(
         select(QualityInspection)
@@ -118,7 +118,7 @@ async def get_inspection(inspection_id: uuid.UUID, db: DBSession):
 async def add_defect(
     inspection_id: uuid.UUID,
     body: DefectDetailCreate,
-    db: DBSession,
+    db: DBSession = None,
 ):
     """불량 상세 추가"""
     insp = (await db.execute(
@@ -138,7 +138,7 @@ async def add_defect(
 
 
 @router.get("/lot/{lot_id}", response_model=list[QualityInspectionRead])
-async def get_lot_inspections(lot_id: uuid.UUID, db: DBSession):
+async def get_lot_inspections(lot_id: uuid.UUID, db: DBSession = None):
     """LOT별 검사 이력 전체"""
     inspections = await QualityService(db).get_lot_inspections(lot_id)
     return [QualityInspectionRead.model_validate(i) for i in inspections]

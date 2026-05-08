@@ -1,4 +1,4 @@
-"""수주 엔드포인트"""
+﻿"""수주 엔드포인트"""
 import uuid
 from datetime import date
 from typing import Optional
@@ -23,7 +23,7 @@ async def list_orders(
     customer_id: Optional[uuid.UUID] = Query(None),
     date_from: Optional[date] = Query(None),
     date_to: Optional[date] = Query(None),
-    db: DBSession,
+    db: DBSession = None,
 ):
     """수주 목록"""
     svc = OrderService(db)
@@ -35,14 +35,14 @@ async def list_orders(
         page=page,
         limit=limit,
     )
-    return PaginatedResponse(data=items, total=total, page=page, limit=limit)
+    return PaginatedResponse.build(items=items, total=total, page=page, limit=limit)
 
 
 @router.post("/", response_model=OrderRead, status_code=201)
 async def create_order(
     body: OrderCreate,
-    db: DBSession,
-    user: CurrentUser,
+    db: DBSession = None,
+    user: CurrentUser = None,
     _: None = _require_manager,
 ):
     """수주 등록"""
@@ -53,7 +53,7 @@ async def create_order(
 
 
 @router.get("/{order_id}", response_model=OrderRead)
-async def get_order(order_id: uuid.UUID, db: DBSession):
+async def get_order(order_id: uuid.UUID, db: DBSession = None):
     """수주 상세 (items 포함)"""
     return await OrderService(db).get_order(order_id)
 
@@ -62,8 +62,8 @@ async def get_order(order_id: uuid.UUID, db: DBSession):
 async def update_order_status(
     order_id: uuid.UUID,
     body: OrderStatusUpdate,
-    db: DBSession,
-    user: CurrentUser,
+    db: DBSession = None,
+    user: CurrentUser = None,
     _: None = _require_manager,
 ):
     """수주 상태 변경"""
@@ -71,3 +71,4 @@ async def update_order_status(
     order = await svc.update_status(order_id, body.status)
     await db.commit()
     return order
+

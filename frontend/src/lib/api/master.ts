@@ -27,8 +27,8 @@ export const suppliersApi = {
       .then((r) => r.data),
   get: (id: string) =>
     apiClient
-      .get<{ data: Supplier }>(`/api/v1/master/suppliers/${id}`)
-      .then((r) => r.data.data),
+      .get<Supplier>(`/api/v1/master/suppliers/${id}`)
+      .then((r) => r.data),
   create: (body: Partial<Supplier>) =>
     apiClient
       .post<Supplier>('/api/v1/master/suppliers', body)
@@ -49,8 +49,8 @@ export const customersApi = {
       .then((r) => r.data),
   get: (id: string) =>
     apiClient
-      .get<{ data: Customer }>(`/api/v1/master/customers/${id}`)
-      .then((r) => r.data.data),
+      .get<Customer>(`/api/v1/master/customers/${id}`)
+      .then((r) => r.data),
   create: (body: Partial<Customer>) =>
     apiClient
       .post<Customer>('/api/v1/master/customers', body)
@@ -71,8 +71,8 @@ export const materialsApi = {
       .then((r) => r.data),
   get: (id: string) =>
     apiClient
-      .get<{ data: RawMaterial }>(`/api/v1/master/materials/${id}`)
-      .then((r) => r.data.data),
+      .get<RawMaterial>(`/api/v1/master/materials/${id}`)
+      .then((r) => r.data),
   create: (body: Partial<RawMaterial>) =>
     apiClient
       .post<RawMaterial>('/api/v1/master/materials', body)
@@ -93,8 +93,8 @@ export const processTypesApi = {
       .then((r) => r.data),
   get: (id: string) =>
     apiClient
-      .get<{ data: ProcessTypeRecord }>(`/api/v1/master/processes/${id}`)
-      .then((r) => r.data.data),
+      .get<ProcessTypeRecord>(`/api/v1/master/processes/${id}`)
+      .then((r) => r.data),
   create: (body: Partial<ProcessTypeRecord>) =>
     apiClient
       .post<ProcessTypeRecord>('/api/v1/master/processes', body)
@@ -115,8 +115,8 @@ export const equipmentApi = {
       .then((r) => r.data),
   get: (id: string) =>
     apiClient
-      .get<{ data: EquipmentRecord }>(`/api/v1/master/equipment/${id}`)
-      .then((r) => r.data.data),
+      .get<EquipmentRecord>(`/api/v1/master/equipment/${id}`)
+      .then((r) => r.data),
   create: (body: Partial<EquipmentRecord>) =>
     apiClient
       .post<EquipmentRecord>('/api/v1/master/equipment', body)

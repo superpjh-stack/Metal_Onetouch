@@ -30,7 +30,7 @@ async def list_equipment(
     equipment_status: Optional[str] = Query(None, alias="status"),
     process_id: Optional[uuid.UUID] = Query(None),
     is_active: Optional[bool] = Query(None),
-    db: DBSession,
+    db: DBSession = None,
 ):
     """설비 목록 조회"""
     filters = []
@@ -72,7 +72,7 @@ async def list_equipment(
     status_code=status.HTTP_201_CREATED,
     dependencies=[_require_write],
 )
-async def create_equipment(body: EquipmentCreate, db: DBSession):
+async def create_equipment(body: EquipmentCreate, db: DBSession = None):
     """설비 생성"""
     existing = await db.execute(
         select(Equipment).where(Equipment.equipment_code == body.equipment_code)
@@ -91,7 +91,7 @@ async def create_equipment(body: EquipmentCreate, db: DBSession):
 
 
 @router.get("/{equipment_id}", response_model=EquipmentRead)
-async def get_equipment(equipment_id: uuid.UUID, db: DBSession):
+async def get_equipment(equipment_id: uuid.UUID, db: DBSession = None):
     """설비 단건 조회"""
     result = await db.execute(
         select(Equipment).where(Equipment.id == equipment_id)
@@ -109,7 +109,7 @@ async def get_equipment(equipment_id: uuid.UUID, db: DBSession):
     response_model=EquipmentRead,
     dependencies=[_require_write],
 )
-async def update_equipment(equipment_id: uuid.UUID, body: EquipmentUpdate, db: DBSession):
+async def update_equipment(equipment_id: uuid.UUID, body: EquipmentUpdate, db: DBSession = None):
     """설비 수정"""
     result = await db.execute(
         select(Equipment).where(Equipment.id == equipment_id)
@@ -136,7 +136,7 @@ async def update_equipment(equipment_id: uuid.UUID, body: EquipmentUpdate, db: D
 async def update_equipment_status(
     equipment_id: uuid.UUID,
     body: EquipmentStatusUpdate,
-    db: DBSession,
+    db: DBSession = None,
 ):
     """설비 상태 변경"""
     result = await db.execute(
@@ -162,7 +162,7 @@ async def update_equipment_status(
     status_code=status.HTTP_204_NO_CONTENT,
     dependencies=[_require_admin],
 )
-async def deactivate_equipment(equipment_id: uuid.UUID, db: DBSession):
+async def deactivate_equipment(equipment_id: uuid.UUID, db: DBSession = None):
     """설비 비활성화 (실제 삭제 아님)"""
     result = await db.execute(
         select(Equipment).where(Equipment.id == equipment_id)

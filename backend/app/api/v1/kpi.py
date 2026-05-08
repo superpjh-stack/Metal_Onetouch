@@ -16,7 +16,7 @@ router = APIRouter(tags=["KPI"])
 
 
 @router.get("/summary", response_model=KpiSummary)
-async def get_kpi_summary(db: DBSession):
+async def get_kpi_summary(db: DBSession = None):
     """4종 KPI 실집계 + 목표값 한 번에"""
     return await KpiService(db).get_summary()
 
@@ -24,7 +24,7 @@ async def get_kpi_summary(db: DBSession):
 @router.get("/production", response_model=KpiProductionData)
 async def get_production_kpi(
     days: int = Query(30, ge=7, le=365),
-    db: DBSession,
+    db: DBSession = None,
 ):
     """생산성 KPI + 트렌드"""
     return await KpiService(db).get_production(days=days)
@@ -33,20 +33,20 @@ async def get_production_kpi(
 @router.get("/quality", response_model=KpiQualityData)
 async def get_quality_kpi(
     days: int = Query(30, ge=7, le=365),
-    db: DBSession,
+    db: DBSession = None,
 ):
     """품질 KPI + 트렌드"""
     return await KpiService(db).get_quality(days=days)
 
 
 @router.get("/delivery", response_model=KpiDeliveryData)
-async def get_delivery_kpi(db: DBSession):
+async def get_delivery_kpi(db: DBSession = None):
     """납기 KPI"""
     return await KpiService(db).get_delivery()
 
 
 @router.get("/shipment", response_model=KpiShipmentData)
-async def get_shipment_kpi(db: DBSession):
+async def get_shipment_kpi(db: DBSession = None):
     """출하 KPI"""
     return await KpiService(db).get_shipment()
 
@@ -54,8 +54,8 @@ async def get_shipment_kpi(db: DBSession):
 @router.put("/targets", response_model=list[dict])
 async def update_kpi_targets(
     body: KpiTargetsUpdate,
-    db: DBSession,
-    user: CurrentUser,
+    db: DBSession = None,
+    user: CurrentUser = None,
     _: None = require_roles("admin"),
 ):
     """KPI 목표값 일괄 업데이트"""

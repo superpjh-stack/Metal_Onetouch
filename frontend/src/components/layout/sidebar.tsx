@@ -16,6 +16,9 @@ import {
   ChevronLeft,
   ChevronRight,
   Cpu,
+  Brain,
+  Tag,
+  ShoppingCart,
 } from 'lucide-react'
 import { cn } from '@/lib/utils/format'
 import { useUiStore } from '@/lib/stores/ui-store'
@@ -38,11 +41,14 @@ const navItems: NavItem[] = [
   { label: '공정관리', href: ROUTES.PROCESS, icon: Factory },
   { label: '입고재고', href: ROUTES.INVENTORY, icon: Package },
   { label: '출하물류', href: ROUTES.SHIPMENT, icon: Truck },
+  { label: '수주관리', href: '/orders', icon: ShoppingCart },
   { label: '수주견적 AI', href: ROUTES.QUOTATION, icon: FileText },
   { label: '기준정보', href: ROUTES.MASTER_DATA, icon: Settings2 },
   { label: 'KPI', href: ROUTES.KPI, icon: BarChart2 },
   { label: '데이터허브', href: ROUTES.DATA_HUB, icon: Database },
   { label: 'AI Agent', href: ROUTES.AI_AGENT, icon: Bot },
+  { label: 'ML 학습', href: '/ml/training', icon: Brain },
+  { label: '어노테이션', href: '/ml/annotation', icon: Tag },
   { label: '시스템관리', href: ROUTES.SYSTEM, icon: Users },
 ]
 

@@ -1,3 +1,4 @@
+import uuid as _uuid
 from datetime import datetime, timedelta, timezone
 from typing import Optional, Tuple
 
@@ -87,11 +88,19 @@ async def get_current_user(
 
     payload = verify_token(credentials.credentials, expected_type="access")
 
-    user_id: Optional[str] = payload.get("sub")
-    if user_id is None:
+    user_id_str: Optional[str] = payload.get("sub")
+    if user_id_str is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="토큰에 사용자 정보가 없습니다",
+        )
+
+    try:
+        user_id = _uuid.UUID(user_id_str)
+    except ValueError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="토큰 형식이 올바르지 않습니다",
         )
 
     result = await db.execute(select(User).where(User.id == user_id))

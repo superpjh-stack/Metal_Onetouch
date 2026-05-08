@@ -25,11 +25,11 @@ _require_manager = require_roles("admin", "production_manager")
 
 
 @router.get("/pending", response_model=list[ShipmentRead])
-async def get_pending_shipments(db: DBSession):
+async def get_pending_shipments(db: DBSession = None):
     """출하 대기 목록 (대시보드 연동용)"""
     result = await db.execute(
         select(Shipment)
-        .options(joinedload(Shipment.lots))
+        .options(joinedload(Shipment.lots), joinedload(Shipment.customer))
         .where(Shipment.status == "pending")
         .order_by(Shipment.planned_date.asc())
     )
@@ -44,7 +44,7 @@ async def list_shipments(
     customer_id: Optional[uuid.UUID] = Query(None),
     date_from: Optional[date] = Query(None),
     date_to: Optional[date] = Query(None),
-    db: DBSession,
+    db: DBSession = None,
 ):
     """출하 목록 조회"""
     filters = []
@@ -63,7 +63,7 @@ async def list_shipments(
 
     items_result = await db.execute(
         select(Shipment)
-        .options(joinedload(Shipment.lots))
+        .options(joinedload(Shipment.lots), joinedload(Shipment.customer))
         .where(*filters)
         .order_by(Shipment.created_at.desc())
         .offset((page - 1) * limit)
@@ -84,8 +84,8 @@ async def list_shipments(
 )
 async def create_shipment(
     body: ShipmentCreate,
-    db: DBSession,
-    current_user: CurrentUser,
+    db: DBSession = None,
+    current_user: CurrentUser = None,
 ):
     """출하 등록 + LOT 묶음 + shipment_number 자동 생성"""
     shipment = await ShipmentService(db).create_shipment(
@@ -95,11 +95,11 @@ async def create_shipment(
 
 
 @router.get("/{shipment_id}", response_model=ShipmentRead)
-async def get_shipment(shipment_id: uuid.UUID, db: DBSession):
+async def get_shipment(shipment_id: uuid.UUID, db: DBSession = None):
     """출하 상세 + 포함 LOT 목록"""
     result = await db.execute(
         select(Shipment)
-        .options(joinedload(Shipment.lots))
+        .options(joinedload(Shipment.lots), joinedload(Shipment.customer))
         .where(Shipment.id == shipment_id)
     )
     shipment = result.scalar_one_or_none()
@@ -116,7 +116,7 @@ async def get_shipment(shipment_id: uuid.UUID, db: DBSession):
 async def update_shipment_status(
     shipment_id: uuid.UUID,
     body: ShipmentStatusUpdate,
-    db: DBSession,
+    db: DBSession = None,
 ):
     """출하 상태 전환 (shipped/delivered/cancelled)"""
     result = await db.execute(
@@ -140,7 +140,7 @@ async def update_shipment_status(
 async def add_lots_to_shipment(
     shipment_id: uuid.UUID,
     body: list[ShipmentLotItem],
-    db: DBSession,
+    db: DBSession = None,
 ):
     """출하에 LOT 추가 (pending 상태일 때만)"""
     shipment = await ShipmentService(db).add_lots(

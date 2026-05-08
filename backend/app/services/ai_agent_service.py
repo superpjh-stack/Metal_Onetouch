@@ -126,7 +126,7 @@ class AIAgentService:
             conversation_id=conversation.id,
             role="assistant",
             content=assistant_response,
-            metadata=metadata,
+            msg_metadata=metadata,
             latency_ms=latency_ms,
             tokens_used=tokens_used,
         )

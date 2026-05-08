@@ -12,7 +12,7 @@ router = APIRouter(tags=["BOM"])
 
 
 @router.get("/{bom_id}/export")
-async def export_bom(bom_id: uuid.UUID, db: DBSession, _: CurrentUser):
+async def export_bom(bom_id: uuid.UUID, db: DBSession = None, _: CurrentUser = None):
     """BOM Excel 내보내기"""
     xlsx_bytes = await BomService(db).export_xlsx(bom_id)
     return Response(

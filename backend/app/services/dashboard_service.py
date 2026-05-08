@@ -1,8 +1,13 @@
 """대시보드 집계 Service Layer"""
 from datetime import date, datetime, timedelta, timezone
 
-from sqlalchemy import cast, Date, func, select
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
+
+
+def _date_label(col):
+    """SQLite/PostgreSQL 호환 date 추출 — func.date() 사용"""
+    return func.date(col)
 
 from app.models.equipment import Equipment
 from app.models.lot import Lot
@@ -122,29 +127,33 @@ class DashboardService:
 
         actual_rows = (await self.db.execute(
             select(
-                cast(ProcessResult.created_at, Date).label("day"),
+                _date_label(ProcessResult.created_at).label("day"),
                 func.coalesce(func.sum(ProcessResult.output_qty), 0).label("actual"),
                 func.coalesce(func.sum(ProcessResult.defect_qty), 0).label("defects"),
             )
             .where(ProcessResult.created_at >= since)
-            .group_by(cast(ProcessResult.created_at, Date))
-            .order_by(cast(ProcessResult.created_at, Date))
+            .group_by(_date_label(ProcessResult.created_at))
+            .order_by(_date_label(ProcessResult.created_at))
         )).all()
 
         planned_rows = (await self.db.execute(
             select(
-                cast(WorkOrder.planned_start, Date).label("day"),
+                _date_label(WorkOrder.planned_start).label("day"),
                 func.coalesce(func.sum(WorkOrder.input_qty), 0).label("planned"),
             )
             .where(WorkOrder.planned_start >= since)
-            .group_by(cast(WorkOrder.planned_start, Date))
+            .group_by(_date_label(WorkOrder.planned_start))
         )).all()
-        planned_map: dict[date, float] = {r.day: float(r.planned) for r in planned_rows}
+        planned_map: dict[str, float] = {r.day: float(r.planned) for r in planned_rows}
+
+        def _fmt(day) -> str:
+            s = str(day)[:10]   # "YYYY-MM-DD"
+            return s[5:].replace("-", "/")  # "MM/DD"
 
         return [
             ProductionTrendItem(
-                date=row.day.strftime("%m/%d"),
-                planned=planned_map.get(row.day, 0.0),
+                date=_fmt(row.day),
+                planned=planned_map.get(str(row.day)[:10], 0.0),
                 actual=float(row.actual),
                 defects=float(row.defects),
             )

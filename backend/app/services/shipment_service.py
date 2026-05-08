@@ -137,7 +137,7 @@ class ShipmentService:
     async def _reload(self, shipment_id: uuid.UUID) -> Shipment:
         result = await self.db.execute(
             select(Shipment)
-            .options(joinedload(Shipment.lots))
+            .options(joinedload(Shipment.lots), joinedload(Shipment.customer))
             .where(Shipment.id == shipment_id)
         )
         return result.scalar_one()

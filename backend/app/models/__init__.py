@@ -1,3 +1,4 @@
+import app.core.db_compat  # SQLite 호환 패치 (모델 import 전에 실행)
 from app.models.base import Base, TimestampMixin, UUIDMixin
 from app.models.user import User
 from app.models.lot import Lot, LotHistory

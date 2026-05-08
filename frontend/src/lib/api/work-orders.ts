@@ -18,10 +18,10 @@ export const workOrdersApi = {
 
   get: (id: string) =>
     apiClient
-      .get<{ data: WorkOrder & { process_results: ProcessResult[] } }>(
+      .get<WorkOrder & { process_results: ProcessResult[] }>(
         `/api/v1/work-orders/${id}`
       )
-      .then((r) => r.data.data),
+      .then((r) => r.data),
 
   create: (body: Partial<WorkOrder>) =>
     apiClient

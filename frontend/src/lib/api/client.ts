@@ -97,7 +97,10 @@ apiClient.interceptors.response.use(
           { refreshToken }
         )
 
-        const { accessToken } = response.data.data
+        // 백엔드: { access_token } 또는 래핑된 { data: { accessToken } }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const rd = response.data as any
+        const accessToken: string = rd.access_token ?? rd.data?.accessToken
 
         if (typeof window !== 'undefined') {
           localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, accessToken)

@@ -23,7 +23,7 @@ async def list_processes(
     search: Optional[str] = Query(None, description="이름 또는 코드 검색"),
     process_type: Optional[str] = Query(None, description="공정 유형 필터"),
     is_active: Optional[bool] = Query(None),
-    db: DBSession,
+    db: DBSession = None,
 ):
     """공정 목록 조회"""
     filters = []
@@ -64,7 +64,7 @@ async def list_processes(
     status_code=status.HTTP_201_CREATED,
     dependencies=[_require_write],
 )
-async def create_process(body: ProcessTypeCreate, db: DBSession):
+async def create_process(body: ProcessTypeCreate, db: DBSession = None):
     """공정 생성"""
     existing = await db.execute(
         select(ProcessType).where(ProcessType.process_code == body.process_code)
@@ -83,7 +83,7 @@ async def create_process(body: ProcessTypeCreate, db: DBSession):
 
 
 @router.get("/{process_id}", response_model=ProcessTypeRead)
-async def get_process(process_id: uuid.UUID, db: DBSession):
+async def get_process(process_id: uuid.UUID, db: DBSession = None):
     """공정 단건 조회"""
     result = await db.execute(
         select(ProcessType).where(ProcessType.id == process_id)
@@ -101,7 +101,7 @@ async def get_process(process_id: uuid.UUID, db: DBSession):
     response_model=ProcessTypeRead,
     dependencies=[_require_write],
 )
-async def update_process(process_id: uuid.UUID, body: ProcessTypeUpdate, db: DBSession):
+async def update_process(process_id: uuid.UUID, body: ProcessTypeUpdate, db: DBSession = None):
     """공정 수정"""
     result = await db.execute(
         select(ProcessType).where(ProcessType.id == process_id)
@@ -125,7 +125,7 @@ async def update_process(process_id: uuid.UUID, body: ProcessTypeUpdate, db: DBS
     status_code=status.HTTP_204_NO_CONTENT,
     dependencies=[_require_admin],
 )
-async def deactivate_process(process_id: uuid.UUID, db: DBSession):
+async def deactivate_process(process_id: uuid.UUID, db: DBSession = None):
     """공정 비활성화 (실제 삭제 아님)"""
     result = await db.execute(
         select(ProcessType).where(ProcessType.id == process_id)

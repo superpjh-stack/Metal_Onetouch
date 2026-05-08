@@ -3,7 +3,7 @@ from datetime import datetime
 from typing import Literal
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class AgentQueryRequest(BaseModel):
@@ -35,8 +35,8 @@ class MessageRead(BaseModel):
     conversation_id: UUID
     role: str
     content: str
-    metadata: dict | None
+    metadata: dict | None = Field(validation_alias='msg_metadata', default=None)
     tokens_used: int | None
     latency_ms: int | None
     created_at: datetime
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(from_attributes=True, populate_by_name=True)

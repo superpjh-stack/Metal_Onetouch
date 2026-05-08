@@ -7,18 +7,23 @@ class Settings(BaseSettings):
     APP_NAME: str = "Onetouch AI+MES"
     DEBUG: bool = False
 
-    # Database
+    # Database — .env에 DATABASE_URL이 있으면 그걸 우선 사용, 없으면 POSTGRES_* 조합
+    DATABASE_URL: str = ""
     POSTGRES_HOST: str = "localhost"
     POSTGRES_PORT: int = 5432
     POSTGRES_DB: str = "onetouch_mes"
     POSTGRES_USER: str = "postgres"
     POSTGRES_PASSWORD: str = "postgres"
 
-    @property
-    def DATABASE_URL(self) -> str:
+    @field_validator("DATABASE_URL", mode="after")
+    @classmethod
+    def assemble_db_url(cls, v: str, info) -> str:
+        if v:
+            return v
+        data = info.data
         return (
-            f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}"
-            f"@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
+            f"postgresql+asyncpg://{data.get('POSTGRES_USER','postgres')}:{data.get('POSTGRES_PASSWORD','postgres')}"
+            f"@{data.get('POSTGRES_HOST','localhost')}:{data.get('POSTGRES_PORT',5432)}/{data.get('POSTGRES_DB','onetouch_mes')}"
         )
 
     # Redis

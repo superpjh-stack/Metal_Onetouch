@@ -6,6 +6,7 @@ from typing import Optional
 
 from fastapi import HTTPException, status
 from sqlalchemy import func, select
+from sqlalchemy.orm import selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.cad import CadDrawing
@@ -212,7 +213,8 @@ class QuotationService:
         )).scalar_one()
 
         rows = (await self.db.execute(
-            q.order_by(Quotation.created_at.desc())
+            q.options(selectinload(Quotation.customer))
+            .order_by(Quotation.created_at.desc())
             .offset((page - 1) * limit)
             .limit(limit)
         )).scalars().all()
@@ -312,11 +314,12 @@ class QuotationService:
                 if str(r.payload.get("quotation_id")) != str(quotation_id)
             ][:top_k]
             rows = (await self.db.execute(
-                select(Quotation).where(Quotation.id.in_(ids))
+                select(Quotation).options(selectinload(Quotation.customer))
+                .where(Quotation.id.in_(ids))
             )).scalars().all()
         except Exception:
             rows = (await self.db.execute(
-                select(Quotation)
+                select(Quotation).options(selectinload(Quotation.customer))
                 .where(Quotation.id != quotation_id)
                 .order_by(
                     func.abs(Quotation.total_amount - source.total_amount)
